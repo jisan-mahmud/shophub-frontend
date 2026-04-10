@@ -1,27 +1,27 @@
-﻿import React from 'react'
+import React from 'react'
 
 export default function ShopPage() {
   return (
     <div className="min-h-screen bg-surface text-on-surface font-sans">
-      <header className="h-16 w-full sticky top-0 z-40 bg-surface dark:bg-gray-950 transition-all duration-150 ease-in-out shadow-sm">
+      <header className="h-16 w-full sticky top-0 z-40 bg-surface transition-all duration-150 ease-in-out shadow-sm">
         <div className="flex justify-between items-center px-6 max-w-[1280px] mx-auto w-full h-full">
           <div className="flex items-center gap-8">
             <span className="text-xl font-black text-primary tracking-tight">Dokan</span>
             <div className="hidden md:flex gap-6">
               <a className="text-primary font-bold border-b-2 border-primary transition-colors" href="#">Explore</a>
-              <a className="text-on-surface-variant font-medium hover:bg-surface-container-high dark:hover:bg-gray-800 p-1 px-2 rounded-lg transition-colors" href="#">Stores</a>
-              <a className="text-on-surface-variant font-medium hover:bg-surface-container-high dark:hover:bg-gray-800 p-1 px-2 rounded-lg transition-colors" href="#">Trending</a>
+              <a className="text-on-surface-variant font-medium hover:bg-surface-container-high p-1 px-2 rounded-lg transition-colors" href="#">Stores</a>
+              <a className="text-on-surface-variant font-medium hover:bg-surface-container-high p-1 px-2 rounded-lg transition-colors" href="#">Trending</a>
             </div>
           </div>
 
           <div className="flex items-center gap-4">
             <div className="relative flex items-center bg-surface-container rounded-full px-4 py-2 w-64">
-              <span className="material-symbols-outlined text-outline mr-2" data-icon="search">search</span>
+              <span className="material-symbols-outlined text-outline mr-2">search</span>
               <input className="bg-transparent border-none focus:ring-0 text-sm w-full" placeholder="Search products..." type="text" />
             </div>
 
-            <button className="p-2 rounded-full hover:bg-surface-container-high dark:hover:bg-gray-800 transition-colors" aria-label="Notifications">
-              <span className="material-symbols-outlined text-outline dark:text-gray-400" data-icon="notifications">notifications</span>
+            <button className="p-2 rounded-full hover:bg-surface-container-high transition-colors" aria-label="Notifications">
+              <span className="material-symbols-outlined text-outline">notifications</span>
             </button>
 
             <div className="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
@@ -48,9 +48,9 @@ export default function ShopPage() {
 
           <div className="px-8 -mt-20 relative z-10">
             <div className="max-w-[1280px] mx-auto w-full">
-              <div className="bg-surface-container-lowest p-8 rounded-2xl flex flex-col md:flex-row justify-between items-end gap-6 border-none shadow-[0_12px_32px_-4px_rgba(0,77,52,0.08)]">
+              <div className="bg-surface-container-lowest p-8 rounded-2xl flex flex-col md:flex-row justify-between items-end gap-6 border-none shadow-ambient">
               <div className="flex flex-col md:flex-row items-center md:items-end gap-6 w-full md:w-auto">
-                <div className="w-32 h-32 rounded-2xl bg-white p-2 shadow-lg -mt-16 ring-4 ring-surface-container-lowest">
+                <div className="w-32 h-32 rounded-2xl bg-surface-container-lowest p-2 shadow-lg -mt-16 ring-4 ring-surface-container-lowest">
                   <img
                     alt="Shop Logo"
                     className="w-full h-full object-cover rounded-xl"
@@ -61,23 +61,21 @@ export default function ShopPage() {
                 <div className="text-center md:text-left flex-1">
                   <div className="flex items-center justify-center md:justify-start gap-2 mb-1">
                     <h1 className="text-3xl font-extrabold tracking-tight text-on-surface">Artisan Flagship</h1>
-                    <span className="material-symbols-outlined text-primary-container text-2xl" data-icon="verified" style={{ fontVariationSettings: '"FILL" 1' }}>
+                    <span className="material-symbols-outlined text-primary-container text-2xl" style={{ fontVariationSettings: '"FILL" 1' }}>
                       verified
                     </span>
                   </div>
 
                   <div className="flex items-center justify-center md:justify-start gap-4 text-sm font-medium text-on-surface-variant">
                     <div className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-amber-500 text-lg" data-icon="star" style={{ fontVariationSettings: '"FILL" 1' }}>
+                      <span className="material-symbols-outlined text-secondary text-lg" style={{ fontVariationSettings: '"FILL" 1' }}>
                         star
                       </span>
                       <span className="text-on-surface font-bold">4.9</span>
                       <span className="text-outline-variant">(2.4k Reviews)</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <span className="material-symbols-outlined text-lg" data-icon="location_on">
-                        location_on
-                      </span>
+                      <span className="material-symbols-outlined text-lg">location_on</span>
                       <span>Dhaka, Bangladesh</span>
                     </div>
                   </div>
@@ -182,7 +180,7 @@ export default function ShopPage() {
                     price: '৳ 5,600',
                     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDI9Sf8og9izEJ7Z5V_Wtp6dznGgFm3BPjG0AkDif1Ejw6IuOd257XjXPVpIuposNYIenYzII2zYcENA0jE2dZiD6Ctq8WrYDT2GZq5QivF3fNRL23O7ixVWOaSdiK_R7W90785n6bgd-7E7Kbl_TUokmrqYhia5JMvlRd6aSLhkaXvPKAszOMsujGIy0Xk6zT3atj03n1-8dXTCpGfVh0RSHc6qgt3XrSOK4Ss3LSUn-1yHu5YeRSkrosn-zlGlwpCU93Ba9mx7lY',
                     badge: 'Only 2 Left',
-                    badgeClass: 'bg-error-container text-on-error-container',
+                    badgeClass: 'bg-tertiary-container text-on-surface',
                   },
                   {
                     title: 'Carved Walnut Spoon Set',
@@ -197,7 +195,7 @@ export default function ShopPage() {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         src={product.image}
                       />
-                      <button className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/80 premium-blur flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button className="absolute top-4 right-4 w-10 h-10 rounded-full bg-surface-container-lowest/80 backdrop-blur-sm flex items-center justify-center text-primary opacity-0 group-hover:opacity-100 transition-opacity">
                         <span className="material-symbols-outlined">favorite</span>
                       </button>
                       {product.badge ? (
@@ -231,7 +229,7 @@ export default function ShopPage() {
         </div>
       </main>
 
-      <footer className="w-full py-12 mt-auto border-t border-surface-container-high bg-surface dark:border-gray-800 dark:bg-gray-950">
+      <footer className="w-full py-12 mt-auto border-t border-surface-container-high bg-surface">
         <div className="max-w-[1280px] mx-auto w-full px-6 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex flex-col items-center md:items-start gap-2">
             <span className="font-bold text-primary text-xl">Dokan Digital Artisan</span>
@@ -242,7 +240,7 @@ export default function ShopPage() {
           <div className="flex flex-wrap justify-center gap-6">
             <a className="text-xs text-on-surface-variant hover:text-on-surface transition-all hover:underline" href="#">Privacy Policy</a>
             <a className="text-xs text-on-surface-variant hover:text-on-surface transition-all hover:underline" href="#">Terms of Service</a>
-            <a className="text-xs text-on-surface-variant hover:text-on-surface transition-all hover:underline text-primary underline" href="#">Merchant Agreement</a>
+            <a className="text-xs text-primary underline hover:text-on-surface transition-all hover:underline" href="#">Merchant Agreement</a>
             <a className="text-xs text-on-surface-variant hover:text-on-surface transition-all hover:underline" href="#">Contact Support</a>
           </div>
           <div className="flex flex-col items-center md:items-end gap-2">

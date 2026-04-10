@@ -21,16 +21,17 @@ export default function ProductDetails() {
     "https://lh3.googleusercontent.com/aida-public/AB6AXuBazZ-PgZUHq-9e2bV2RO5z3ma1_a9iWnCy3SbwA5IeK3okP8UV5t-7mrBqAXxmmsESFqzAM0BjqT9BJvfxdpy0JjmGGv0ljkPnpdeVrnTYXiwccEjjLD9c9yOnyu0YrgMCljfeKeMAQwlagLxFRq7PYVJ5bIjYyzP3OxSINaaXWo5wuRW86H8lFSmq9jS1rZA-l6spsvexvXK0BUu2ZaBlosVZkH-R413sQz6JHxO01-Cq1na38kMXQdIODh5UfXL1ZZDgXvdrKtE"
   ]
 
-  const handleSizeSelect = (size) => {
-    setSelectedSize(size)
-  }
+  const handleSizeSelect = (size) => setSelectedSize(size)
+  const handleColorSelect = (colorName) => setSelectedColor(colorName)
+  const handleQuantityChange = (change) => setQuantity(prev => Math.max(1, prev + change))
 
-  const handleColorSelect = (colorName) => {
-    setSelectedColor(colorName)
-  }
-
-  const handleQuantityChange = (change) => {
-    setQuantity(prev => Math.max(1, prev + change))
+  const handleShare = (platform) => {
+    const url = encodeURIComponent(window.location.href)
+    const urls = {
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+      twitter: `https://twitter.com/intent/tweet?url=${url}`,
+    }
+    window.open(urls[platform], '_blank')
   }
 
   const handleCheckout = () => {
@@ -40,15 +41,14 @@ export default function ProductDetails() {
 
   return (
     <div className="bg-surface text-on-surface">
-      {/* TopNavBar */}
       <nav className="h-16 w-full sticky top-0 z-40 bg-surface border-none">
         <div className="flex justify-between items-center px-6 max-w-[1280px] mx-auto w-full h-full">
           <div className="flex items-center gap-8">
             <span className="text-xl font-black text-primary font-display">Dokan</span>
             <div className="hidden md:flex gap-6">
-              <a className="text-primary font-bold border-b-2 border-primary font-semibold tracking-tight" href="#">Explore</a>
-              <a className="text-outline font-medium font-semibold tracking-tight hover:bg-surface-container-high transition-colors" href="#">Categories</a>
-              <a className="text-outline font-medium font-semibold tracking-tight hover:bg-surface-container-high transition-colors" href="#">New Arrivals</a>
+              <a className="text-primary font-bold border-b-2 border-primary tracking-tight" href="#">Explore</a>
+              <a className="text-outline font-medium tracking-tight hover:bg-surface-container-high transition-colors" href="#">Categories</a>
+              <a className="text-outline font-medium tracking-tight hover:bg-surface-container-high transition-colors" href="#">New Arrivals</a>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -56,10 +56,10 @@ export default function ProductDetails() {
               <span className="material-symbols-outlined text-outline">search</span>
               <input className="bg-transparent border-none focus:ring-0 text-sm w-64" placeholder="Search artisan products..." type="text" />
             </div>
-            <button className="p-2 hover:bg-surface-container-high rounded-full transition-all duration-150 ease-in-out scale-95">
+            <button className="p-2 hover:bg-surface-container-high rounded-full transition-all">
               <span className="material-symbols-outlined">notifications</span>
             </button>
-            <button className="p-2 hover:bg-surface-container-high rounded-full transition-all duration-150 ease-in-out scale-95">
+            <button className="p-2 hover:bg-surface-container-high rounded-full transition-all">
               <span className="material-symbols-outlined">settings</span>
             </button>
             <div className="w-8 h-8 rounded-full overflow-hidden">
@@ -68,6 +68,7 @@ export default function ProductDetails() {
           </div>
         </div>
       </nav>
+
       <main className="max-w-[1280px] mx-auto px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left Column: Product Visuals */}
@@ -86,11 +87,12 @@ export default function ProductDetails() {
                       : 'border-2 border-transparent hover:opacity-80'
                   }`}
                 >
-                  <img className="w-full h-full object-cover" src={image} />
+                  <img className="w-full h-full object-cover" src={image} alt="" />
                 </div>
               ))}
             </div>
           </div>
+
           {/* Right Column: Product Details */}
           <div className="flex flex-col">
             <div className="mb-2">
@@ -101,7 +103,7 @@ export default function ProductDetails() {
               <span className="text-4xl font-black text-primary">৳ 4,850</span>
               <span className="text-lg text-outline line-through mb-1">৳ 5,500</span>
             </div>
-            {/* Product Options */}
+
             <div className="space-y-8 mb-10">
               <div>
                 <h3 className="text-sm font-bold text-on-surface mb-4">Select Size</h3>
@@ -121,6 +123,7 @@ export default function ProductDetails() {
                   ))}
                 </div>
               </div>
+
               <div>
                 <h3 className="text-sm font-bold text-on-surface mb-4">Color</h3>
                 <div className="flex gap-4">
@@ -129,37 +132,34 @@ export default function ProductDetails() {
                       key={color.name}
                       onClick={() => handleColorSelect(color.name)}
                       className={`w-10 h-10 rounded-full transition-all ${
-                        selectedColor === color.name
-                          ? 'ring-2 ring-primary ring-offset-2'
-                          : ''
+                        selectedColor === color.name ? 'ring-2 ring-primary ring-offset-2' : ''
                       }`}
                       style={{ backgroundColor: color.hex }}
                     />
                   ))}
                 </div>
               </div>
-              <div className="flex items-center gap-6">
-                <div>
-                  <h3 className="text-sm font-bold text-on-surface mb-4">Quantity</h3>
-                  <div className="flex items-center bg-surface-container-highest rounded-xl p-1">
-                    <button
-                      onClick={() => handleQuantityChange(-1)}
-                      className="w-10 h-10 flex items-center justify-center hover:bg-surface-container-high rounded-lg transition-colors"
-                    >
-                      <span className="material-symbols-outlined">remove</span>
-                    </button>
-                    <span className="w-12 text-center font-bold">{quantity}</span>
-                    <button
-                      onClick={() => handleQuantityChange(1)}
-                      className="w-10 h-10 flex items-center justify-center hover:bg-surface-container-high rounded-lg transition-colors"
-                    >
-                      <span className="material-symbols-outlined">add</span>
-                    </button>
-                  </div>
+
+              <div>
+                <h3 className="text-sm font-bold text-on-surface mb-4">Quantity</h3>
+                <div className="flex items-center bg-surface-container-highest rounded-xl p-1 w-fit">
+                  <button
+                    onClick={() => handleQuantityChange(-1)}
+                    className="w-10 h-10 flex items-center justify-center hover:bg-surface-container-high rounded-lg transition-colors"
+                  >
+                    <span className="material-symbols-outlined">remove</span>
+                  </button>
+                  <span className="w-12 text-center font-bold">{quantity}</span>
+                  <button
+                    onClick={() => handleQuantityChange(1)}
+                    className="w-10 h-10 flex items-center justify-center hover:bg-surface-container-high rounded-lg transition-colors"
+                  >
+                    <span className="material-symbols-outlined">add</span>
+                  </button>
                 </div>
               </div>
             </div>
-            {/* Selection Summary */}
+
             <div className="bg-surface-container-low rounded-lg p-4 mb-6">
               <h4 className="text-sm font-bold text-on-surface mb-2">Your Selection</h4>
               <div className="flex flex-wrap gap-4 text-sm text-on-surface-variant">
@@ -168,16 +168,16 @@ export default function ProductDetails() {
                 <span><strong>Quantity:</strong> {quantity}</span>
               </div>
             </div>
-            {/* Payment & Action */}
+
             <div className="space-y-4 mb-10">
               <button
                 onClick={handleCheckout}
-                className="w-full h-[60px] rounded-xl bg-primary-container text-on-primary font-black text-xl flex items-center justify-center gap-3 shadow-md hover:brightness-95 transition-all"
+                className="w-full h-[60px] rounded-xl bg-primary-container text-on-primary-container font-black text-xl flex items-center justify-center gap-3 shadow-md hover:brightness-95 transition-all"
               >
                 Check Out
               </button>
             </div>
-            {/* Seller Card */}
+
             <div className="bg-surface-container-lowest rounded-xl p-6 mb-8 border border-outline-variant/15">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 rounded-full bg-surface-container-high overflow-hidden">
@@ -205,7 +205,7 @@ export default function ProductDetails() {
                 </div>
               </div>
             </div>
-            {/* Shipping info */}
+
             <div className="grid grid-cols-2 gap-4">
               <div className="flex items-start gap-3">
                 <span className="material-symbols-outlined text-primary">local_shipping</span>
@@ -221,17 +221,17 @@ export default function ProductDetails() {
                   <div className="flex gap-2 mt-1">
                     <button
                       onClick={() => handleShare('facebook')}
-                      className="w-6 h-6 rounded bg-blue-600 hover:bg-blue-700 transition-colors flex items-center justify-center"
+                      className="w-6 h-6 rounded bg-secondary-container hover:opacity-80 transition-colors flex items-center justify-center"
                       title="Share on Facebook"
                     >
-                      <span className="material-symbols-outlined text-white text-xs">facebook</span>
+                      <span className="material-symbols-outlined text-on-secondary-container text-xs">facebook</span>
                     </button>
                     <button
                       onClick={() => handleShare('twitter')}
-                      className="w-6 h-6 rounded bg-blue-400 hover:bg-blue-500 transition-colors flex items-center justify-center"
+                      className="w-6 h-6 rounded bg-primary-container hover:opacity-80 transition-colors flex items-center justify-center"
                       title="Share on Twitter"
                     >
-                      <span className="material-symbols-outlined text-white text-xs">twitter</span>
+                      <span className="material-symbols-outlined text-on-primary-container text-xs">twitter</span>
                     </button>
                   </div>
                 </div>
@@ -239,9 +239,8 @@ export default function ProductDetails() {
             </div>
           </div>
         </div>
-        {/* Below the Fold */}
+
         <div className="mt-24 space-y-16 max-w-4xl">
-          {/* Description Section */}
           <div className="grid grid-cols-1 gap-12 max-w-4xl">
             <div className="max-w-4xl">
               <h2 className="text-2xl font-bold mb-6 border-b-2 border-primary-fixed w-max pb-2">Craftsmanship &amp; Details</h2>
@@ -256,10 +255,9 @@ export default function ProductDetails() {
               </div>
             </div>
           </div>
-          {/* Related Products */}
         </div>
       </main>
-      {/* Footer */}
+
       <footer className="w-full py-12 mt-auto border-t border-surface-container-high bg-surface">
         <div className="max-w-[1280px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex flex-col gap-2">
