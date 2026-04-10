@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #004d34;
+  --color-primary-container: #006747;
+  --color-primary-fixed: #a0f4ca;
+  --color-primary-fixed-dim: #84d7af;
+  --color-primary-fixed-variant: #005137;
+
+  --color-secondary: #b50062;
+  --color-secondary-container: #e2007c;
+  --color-secondary-fixed: #ffd9e2;
+  --color-secondary-fixed-dim: #ffb0c9;
+  --color-secondary-fixed-variant: #8e004c;
+
+  --color-tertiary: #8b000b;
+  --color-tertiary-container: #b70013;
+  --color-tertiary-fixed: #ffdad6;
+  --color-tertiary-fixed-dim: #ffb4ab;
+  --color-tertiary-fixed-variant: #93000d;
+
+  --color-surface: #fcf9f8;
+  --color-surface-bright: #fcf9f8;
+  --color-surface-dim: #dcd9d9;
+  --color-surface-tint: #0b6c4b;
+  --color-surface-variant: #e5e2e1;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f6f3f2;
+  --color-surface-container: #f0eded;
+  --color-surface-container-high: #eae7e7;
+  --color-surface-container-highest: #e5e2e1;
+
+  --color-on-background: #1c1b1b;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #8fe2ba;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #fffbff;
+  --color-on-surface: #1c1b1b;
+  --color-on-surface-variant: #3f4943;
+  --color-outline: #6f7a72;
+  --color-outline-variant: #bec9c1;
+
+  --font-sans: "Inter", "Noto Sans Bengali", sans-serif;
+  --font-display: "Inter", sans-serif;
+
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+
+  --shadow-ambient: 0 12px 32px -4px rgba(0, 77, 52, 0.08);
+}
+
+@layer base {
+  body {
+    @apply bg-surface text-on-surface font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display text-on-surface font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  /* Surface Hierarchy & Tonal Layering */
+  .surface-base {
+    @apply bg-surface;
+  }
+  
+  .surface-low {
+    @apply bg-surface-container-low;
+  }
+
+  .surface-lowest {
+    @apply bg-surface-container-lowest;
+  }
+
+  /* Editorial Metric */
+  .metric-large {
+    @apply text-[3.5rem] font-extrabold leading-none tracking-tight;
+  }
+
+  /* Thumb-First Buttons */
+  .btn-primary {
+    @apply h-[56px] px-6 rounded-md bg-gradient-to-r from-primary to-primary-container text-on-primary font-medium transition-all active:scale-[0.98] flex items-center justify-center gap-2;
+  }
+
+  .btn-bkash {
+    @apply h-[56px] px-6 rounded-md bg-secondary-container text-on-secondary font-medium transition-all active:scale-[0.98] flex items-center justify-center gap-2;
+  }
+
+  .btn-nagad {
+    @apply h-[56px] px-6 rounded-md bg-tertiary-container text-on-secondary font-medium transition-all active:scale-[0.98] flex items-center justify-center gap-2;
+  }
+
+  /* Merchant Card Style */
+  .merchant-card {
+    /* Using direct utility bg-surface-container-lowest instead of .surface-lowest */
+    @apply bg-surface-container-lowest rounded-lg p-4 shadow-ambient;
+  }
+
+  /* Floating Navigation */
+  .frosted-nav {
+    @apply fixed bottom-0 left-0 right-0 bg-surface-container-lowest/80 backdrop-blur-[24px] border-t border-outline-variant/15 px-6 py-4 flex justify-around items-center z-50;
+  }
+}
+
+/* Local resonance for Bengali typography */
+[lang="bn"] {
+  font-family: 'Noto Sans Bengali', sans-serif;
+}
