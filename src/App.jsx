@@ -5,6 +5,7 @@ import CreateShop from './pages/CreateShop';
 import ShopPage from './pages/ShopPage';
 import ShopAbout from './pages/ShopAbout';
 import ProductDetails from './pages/ProductDetails';
+import CartPage from './pages/CartPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/shop-about" element={<ShopAbout />} />
           <Route path="/product-details" element={<ProductDetails />} />
+          <Route path="/cart" element={<CartPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
