@@ -31,7 +31,7 @@ export default function CreateShop() {
             <p className="text-on-surface-variant text-lg max-w-lg mx-auto font-medium opacity-80">Join the premium network of local artisans and scale your business with professional digital tools.</p>
           </div>
           {/* Onboarding Form Card */}
-          <div className="bg-surface-container rounded-3xl p-8 md:p-14 premium-shadow border border-surface-container">
+          <div className="bg-surface-container rounded-3xl p-8 md:p-14 shadow-ambient border border-surface-container">
             <form className="space-y-16">
 
 <section>
