@@ -1,15 +1,15 @@
-import { Outlet, NavLink } from 'react-router-dom';
-import { Menu, CircleUser } from 'lucide-react';
+import { Link, Outlet } from 'react-router-dom';
+import { Menu, X, CircleUser, ShoppingCart } from 'lucide-react';
 import { useState } from 'react';
 
 const MainLayout = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen surface-base pb-24">
+    <div className="surface-base">
       <nav className="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-lg border-b border-outline-variant/20 shadow-sm">
         <div className="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto w-full">
-          <div className="text-2xl font-serif font-black text-primary">Dokan</div>
+          <Link to="/" className="text-2xl font-serif font-black text-primary">Dokan</Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
@@ -19,11 +19,15 @@ const MainLayout = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <button className="hidden md:flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-primary-container text-on-primary rounded-xl font-bold hover:shadow-lg transition-all duration-200">
-              Create Shop
+            <button className="hidden md:block p-2 hover:bg-surface-container rounded-lg transition-colors">
+              <Link to="/cart">
+                <ShoppingCart className="w-6 h-6 text-on-surface-variant" />
+              </Link>
             </button>
             <button className="hidden md:block p-2 hover:bg-surface-container rounded-lg transition-colors">
-              <CircleUser className="w-6 h-6 text-on-surface-variant" />
+              <Link to='/dashboard'>
+                <CircleUser className="w-6 h-6 text-on-surface-variant" />
+              </Link>
             </button>
 
             {/* Mobile Menu Button */}
@@ -54,7 +58,7 @@ const MainLayout = () => {
           </div>
         )}
       </nav>
-      <main className='pt-24 w-full'>
+      <main className='w-full my-18'>
         <Outlet />
       </main>
       {/* Footer */}

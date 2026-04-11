@@ -2,92 +2,26 @@ import React from 'react'
 
 export default function SettingsPage() {
   return (
-    <div className="bg-surface text-on-surface selection:bg-primary-fixed selection:text-on-primary-container font-sans">
-      {/* Sidebar Navigation */}
-      <aside className="h-screen w-72 fixed left-0 top-0 bg-surface-container-low overflow-y-auto flex flex-col gap-2 p-6 z-40 shadow-[12px_0_32px_-4px_rgba(0,77,52,0.04)]">
-        <div className="mb-8 px-2">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary">
-              <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>storefront</span>
-            </div>
-            <div>
-              <h2 className="text-lg font-black text-primary tracking-tight">The Digital Artisan</h2>
-              <p className="text-xs text-on-surface-variant font-medium">Flagship Store</p>
-            </div>
-          </div>
-          <button className="btn-primary w-full">
-            <span className="material-symbols-outlined text-[20px]">add</span>
-            New Listing
-          </button>
-        </div>
-        <nav className="flex flex-col gap-1">
-          <a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container hover:translate-x-1 rounded-xl transition-all duration-300 font-medium text-[0.875rem]" href="#">
-            <span className="material-symbols-outlined">dashboard</span>
-            Overview
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container hover:translate-x-1 rounded-xl transition-all duration-300 font-medium text-[0.875rem]" href="#">
-            <span className="material-symbols-outlined">receipt_long</span>
-            Live Orders
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container hover:translate-x-1 rounded-xl transition-all duration-300 font-medium text-[0.875rem]" href="#">
-            <span className="material-symbols-outlined">inventory_2</span>
-            Catalog
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container hover:translate-x-1 rounded-xl transition-all duration-300 font-medium text-[0.875rem]" href="#">
-            <span className="material-symbols-outlined">storefront</span>
-            Shop Profile
-          </a>
-          <a className="btn-primary w-full justify-start gap-3 px-4 rounded-xl text-[0.875rem]" href="#">
-            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>tune</span>
-            Settings
-          </a>
-        </nav>
-        <div className="mt-auto pt-6 px-2">
-          <div className="p-4 bg-surface-container rounded-2xl flex items-center gap-3">
-            <img alt="Merchant Workshop Logo" className="w-10 h-10 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEtxck3kqqfJE5Ps8acHegRppqcfkpsWb_kGDVkcxXcVkBd-fVwnQJTcoT6ijmiVilRdKlLNR_HEYVpwFstimRoqlmsKeEwCm-E_K43C63MKdZa7NeFPhLhIWGNFpN0cJEy3I8CIGcGEt0_x-7bW-rtw1U9bYzeNTsTPB4X9r04f8RggMv5Oder8TNX9KL59QUgxJIiHFobK6NnPBIYPD1sspemeZ7KeB8xKQv_XpGx6RRWM5uWpomuoHsU5b0VscclkgkGB8oero" />
-            <div className="overflow-hidden">
-              <p className="text-sm font-bold truncate text-on-surface">Rahim Ahmed</p>
-              <p className="text-xs text-on-surface-variant">Super Merchant</p>
-            </div>
+    <div className="bg-surface text-on-surface selection:bg-primary-fixed selection:text-on-primary-container font-sans min-h-screen">
+        
+        {/* Header Actions */}
+        <div className="flex justify-between items-end px-6 md:px-10">
+          <div>
+            <h2 className="text-3xl font-black text-on-surface font-display tracking-tight">
+              Settings
+            </h2>
+            <p className="text-on-surface-variant mt-1">
+              Real-time performance overview for your flagship store.
+            </p>
           </div>
         </div>
-      </aside>
-
-      {/* Main Content */}
-      <main className="ml-72 min-h-screen pb-20 bg-surface">
-        {/* Top App Bar */}
-        <header className="fixed top-0 right-0 left-72 bg-surface-container-low/80 backdrop-blur-xl z-30 h-18 flex justify-between items-center px-12">
-          <h1 className="text-xl font-bold tracking-tighter text-primary">Shop Configuration</h1>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <button className="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors active:scale-95">
-                <span className="material-symbols-outlined">notifications</span>
-              </button>
-              <button className="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-colors active:scale-95">
-                <span className="material-symbols-outlined">chat_bubble</span>
-              </button>
-            </div>
-            <div className="h-8 w-[1px] bg-outline-variant"></div>
-            <button className="flex items-center gap-2 px-3 py-1.5 hover:bg-surface-container rounded-full transition-colors">
-              <span className="material-symbols-outlined text-primary">account_circle</span>
-              <span className="text-sm font-semibold text-primary">Admin</span>
-            </button>
-          </div>
-        </header>
-
+        
         {/* Content Area */}
-        <div className="mt-18 max-w-6xl mx-auto px-12 pt-14 pb-28">
+        <div className="w-full px-12 pt-14 pb-28">
           <div className="flex flex-col gap-16">
 
             {/* Section 1: Shop Info */}
             <section id="shop-info">
-              <div className="flex items-baseline justify-between mb-6">
-                <div>
-                  <h3 className="text-2xl font-bold text-primary tracking-tight">Shop Info</h3>
-                  <p className="text-on-surface-variant text-sm">Visual identity and public shop profile.</p>
-                </div>
-                <span className="px-3 py-1 rounded-full bg-primary-fixed text-on-primary-container text-[10px] font-bold uppercase tracking-widest">Public</span>
-              </div>
               <div className="bg-surface-container-lowest rounded-[32px] p-10 space-y-10">
                 <div className="relative group">
                   <div className="w-full h-64 rounded-[24px] bg-surface-container-low overflow-hidden relative">
@@ -267,8 +201,6 @@ export default function SettingsPage() {
 
           </div>
         </div>
-      </main>
-
       {/* Bottom Nav for Mobile */}
       <nav className="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 bg-surface-container-lowest/80 backdrop-blur-[24px] z-50 h-20 rounded-t-[32px] shadow-[0_-8px_24px_rgba(0,77,52,0.06)] md:hidden">
         <button className="flex flex-col items-center justify-center text-on-surface-variant">
