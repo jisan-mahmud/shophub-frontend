@@ -40,6 +40,11 @@
   --color-outline: #6f7a72;
   --color-outline-variant: #bec9c1;
 
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  --color-on-error: #ffffff;
+  --color-on-error-container: #410002;
+
   --font-sans: "Inter", "Noto Sans Bengali", sans-serif;
   --font-display: "Inter", sans-serif;
 

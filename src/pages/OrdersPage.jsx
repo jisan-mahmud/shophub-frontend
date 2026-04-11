@@ -1,305 +1,272 @@
-import React from 'react'
+import React, { useState } from "react";
+import {
+  Download,
+  Plus,
+  Search,
+  Filter,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  MoreVertical,
+  Trash2,
+  ChevronsUpDown,
+} from "lucide-react";
+
+const ORDERS = [
+  { id: "#ORD-2024-892", date: "Oct 24, 2024", customer: "Anika Sharma", initials: "AS", avatarBg: "bg-primary-fixed", avatarText: "text-on-primary-fixed", items: "3 units", total: "৳12,450.00", status: "Paid", statusClass: "bg-primary/10 text-primary border-primary/20" },
+  { id: "#ORD-2024-891", date: "Oct 24, 2024", customer: "Rahat Khan", initials: "RK", avatarBg: "bg-secondary-fixed", avatarText: "text-on-secondary-fixed", items: "1 unit", total: "৳4,200.00", status: "Pending", statusClass: "bg-tertiary-fixed text-tertiary border-tertiary/20" },
+  { id: "#ORD-2024-890", date: "Oct 23, 2024", customer: "Maliha Zaman", initials: "MZ", avatarBg: "bg-surface-container-highest", avatarText: "text-on-surface", items: "5 units", total: "৳28,900.00", status: "Paid", statusClass: "bg-primary/10 text-primary border-primary/20" },
+  { id: "#ORD-2024-889", date: "Oct 23, 2024", customer: "Tanvir Islam", initials: "TI", avatarBg: "bg-primary-fixed-dim", avatarText: "text-on-primary-fixed", items: "2 units", total: "৳8,600.00", status: "Failed", statusClass: "bg-error-container text-error border-error/20" },
+];
 
 export default function OrdersPage() {
+  const [selected, setSelected] = useState(new Set());
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  const allSelected = selected.size === ORDERS.length;
+  const toggleAll = () => setSelected(allSelected ? new Set() : new Set(ORDERS.map(o => o.id)));
+  const toggleOne = (id) => setSelected(prev => { const s = new Set(prev); s.has(id) ? s.delete(id) : s.add(id); return s; });
+  const handleConfirmCancel = () => { setSelected(new Set()); setShowConfirm(false); };
+
   return (
-    <div className="bg-surface font-sans text-on-surface antialiased">
-      {/* SideNavBar */}
-      <aside className="w-[280px] h-screen fixed left-0 top-0 overflow-y-auto bg-surface-container-low flex flex-col p-4 gap-2 z-50">
-        <div className="px-4 py-6 mb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary font-black text-xl">D</div>
-            <div>
-              <h2 className="font-sans font-semibold tracking-tight text-on-surface">Artisan Flagship</h2>
-              <p className="text-xs text-outline font-medium">Verified Merchant</p>
-            </div>
-          </div>
+    <div className="p-8 w-full">
+      {/* Header Section */}
+      <div className="mb-8 flex justify-between items-end">
+        <div>
+          <h2 className="text-3xl font-black text-on-surface font-display tracking-tight">
+            Products
+          </h2>
+          <p className="text-on-surface-variant mt-1">
+            Real-time performance overview for your flagship store.
+          </p>
         </div>
-        <nav className="flex-1 space-y-1">
-          <a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-surface-container-high transition-all duration-300 ease-in-out rounded-lg" href="#">
-            <span className="material-symbols-outlined">dashboard</span>
-            <span>Dashboard</span>
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-surface-container-high transition-all duration-300 ease-in-out rounded-lg" href="#">
-            <span className="material-symbols-outlined">storefront</span>
-            <span>Products</span>
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 bg-surface-container-lowest text-primary font-bold rounded-lg shadow-sm transition-all duration-300 ease-in-out" href="#">
-            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>shopping_cart</span>
-            <span>Orders</span>
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-surface-container-high transition-all duration-300 ease-in-out rounded-lg" href="#">
-            <span className="material-symbols-outlined">bar_chart</span>
-            <span>Analytics</span>
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-surface-container-high transition-all duration-300 ease-in-out rounded-lg" href="#">
-            <span className="material-symbols-outlined">groups</span>
-            <span>Customers</span>
-          </a>
-        </nav>
-        <div className="mt-auto pt-4 border-t border-surface-container-highest space-y-1">
-          <button className="w-full bg-primary text-on-primary h-12 rounded-xl font-bold flex items-center justify-center gap-2 mb-4 shadow-lg hover:opacity-90 transition-opacity">
-            <span className="material-symbols-outlined">add</span>
-            <span>Add New Product</span>
+        <div className="flex gap-3">
+          <button className="flex items-center gap-2 px-4 py-2.5 bg-surface-container-lowest border border-outline-variant/20 rounded-xl text-sm font-semibold text-on-surface hover:bg-surface-container-high transition-all">
+            <Download size={15} />
+            Export Data
           </button>
-          <a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-surface-container-high transition-all duration-300 ease-in-out rounded-lg" href="#">
-            <span className="material-symbols-outlined">help</span>
-            <span>Help</span>
-          </a>
-          <a className="flex items-center gap-3 px-4 py-3 text-on-surface-variant font-medium hover:bg-surface-container-high transition-all duration-300 ease-in-out rounded-lg" href="#">
-            <span className="material-symbols-outlined">logout</span>
-            <span>Logout</span>
-          </a>
+          <button className="flex items-center gap-2 px-6 py-2.5 bg-primary text-on-primary rounded-xl text-sm font-bold shadow-lg hover:opacity-90 transition-opacity">
+            <Plus size={15} />
+            Create Order
+          </button>
         </div>
-      </aside>
-
-      {/* Main Content Wrapper */}
-      <main className="ml-[280px] min-h-screen flex flex-col">
-        {/* TopAppBar */}
-        <header className="h-16 w-full sticky top-0 z-40 bg-surface-bright border-none flex justify-between items-center px-6">
-          <div className="flex items-center gap-4 flex-1">
-            <div className="relative w-full max-w-md">
-              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
-              <input className="w-full h-10 pl-10 pr-4 bg-surface-container-highest border-none rounded-lg text-sm focus:ring-1 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="Search orders, customers..." type="text" />
-            </div>
+      </div>
+      {/* Page Content */}
+      <div>
+        {/* Filters Bar */}
+        <div className="flex flex-wrap items-center gap-3 mb-6">
+          {/* Search */}
+          <div className="relative flex-1 min-w-[200px]">
+            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-outline" />
+            <input
+              type="text"
+              placeholder="Search ID or Customer..."
+              className="w-full h-10 pl-9 pr-4 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-primary"
+            />
           </div>
+
+          {/* Date Filter */}
+          <div className="relative">
+            <Filter size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none" />
+            <select className="h-10 pl-8 pr-8 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary appearance-none cursor-pointer">
+              <option>Last 30 Days</option>
+              <option>Today</option>
+              <option>This Week</option>
+              <option>This Quarter</option>
+              <option>Custom Range</option>
+            </select>
+            <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none" />
+          </div>
+
+          {/* Status Filter */}
+          <div className="relative">
+            <Filter size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none" />
+            <select className="h-10 pl-8 pr-8 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary appearance-none cursor-pointer">
+              <option value="all">All Status</option>
+              <option value="pending">Pending</option>
+              <option value="processing">Processing</option>
+              <option value="shipped">Shipped</option>
+              <option value="delivered">Delivered</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+            <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none" />
+          </div>
+
+          <button className="h-10 px-4 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm font-medium hover:bg-surface-container-high transition-colors">
+            Reset
+          </button>
+        </div>
+
+        {/* Bulk Actions Bar */}
+        {selected.size > 0 && (
+        <div className="bg-primary/5 border border-primary/10 rounded-xl px-6 py-3 mb-6 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <button className="p-2 text-outline hover:bg-surface-container-high rounded-full transition-colors">
-              <span className="material-symbols-outlined">notifications</span>
-            </button>
-            <button className="p-2 text-outline hover:bg-surface-container-high rounded-full transition-colors">
-              <span className="material-symbols-outlined">settings</span>
-            </button>
-            <div className="h-8 w-8 rounded-full overflow-hidden border border-surface-container-highest">
-              <img alt="Merchant Profile Avatar" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLLHzIWcOoHpfEGeqrFFZ8CuNnq9DHiqoiXrma0Hkn-c-2f_1MPEI1T06pCmArLHcEXOGLDwzSgTE5u97DY8mHdrn4hMfYEcCTYjrUMvzd3DoHeF1PODBpTt9DSItZvNZwF1GPgh6EzPPAHb2FuLnnK5sjTkZd-bKXlO8VaQtQsLHdpjwL_r4QSx4ITeDrd-9hW2UPds0V1pGSpLFsPz2BQcHm0X7jqt1vnn_VEqwOLZtNXIucperePTXat4S0wS2VnLNMDrjwfyc" />
+            <div className="flex items-center gap-2">
+              <input
+                className="rounded text-primary focus:ring-primary w-4 h-4 border-outline-variant"
+                type="checkbox"
+                checked
+                onChange={toggleAll}
+              />
+              <span className="text-sm font-semibold text-primary">
+                {selected.size} Order{selected.size > 1 ? 's' : ''} Selected
+              </span>
             </div>
           </div>
-        </header>
-
-        {/* Page Content */}
-        <div className="flex-1 p-8 max-w-[1280px] mx-auto w-full">
-          {/* Header Section */}
-          <div className="mb-8 flex justify-between items-end">
-            <div>
-              <h1 className="text-3xl font-black text-primary tracking-tight mb-2">Orders Management</h1>
-              <p className="text-outline-variant font-medium">Manage and track your artisan store sales</p>
-            </div>
-            <div className="flex gap-3">
-              <button className="flex items-center gap-2 px-4 py-2.5 bg-surface-container-lowest border border-outline-variant/20 rounded-xl text-sm font-semibold text-on-surface hover:bg-surface-container-high transition-all">
-                <span className="material-symbols-outlined text-sm">file_download</span>
-                Export Data
-              </button>
-              <button className="flex items-center gap-2 px-6 py-2.5 bg-primary text-on-primary rounded-xl text-sm font-bold shadow-lg hover:opacity-90 transition-opacity">
-                <span className="material-symbols-outlined text-sm">add</span>
-                Create Order
-              </button>
-            </div>
+          <div className="flex gap-4">
+            <button onClick={() => setShowConfirm(true)} className="text-sm font-bold text-tertiary flex items-center gap-1.5 px-3 py-1.5 hover:bg-tertiary/10 rounded-lg transition-all">
+              <Trash2 size={15} />
+              Cancel Orders
+            </button>
           </div>
+        </div>
+        )}
 
-          {/* Filters Bar */}
-          <div className="bg-surface-container-low rounded-2xl p-4 mb-6 flex flex-wrap items-center gap-4">
-            <div className="flex-1 min-w-[200px]">
-              <div className="relative">
-                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-xs">filter_list</span>
-                <input className="w-full h-11 pl-10 pr-4 bg-surface-container-lowest border-none rounded-xl text-sm focus:ring-1 focus:ring-primary" placeholder="Search ID or Customer..." type="text" />
+        {/* Cancel Confirmation Modal */}
+        {showConfirm && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+            <div className="bg-surface-container-lowest rounded-2xl shadow-xl p-8 w-full max-w-sm mx-4">
+              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-error-container mx-auto mb-4">
+                <Trash2 size={22} className="text-error" />
+              </div>
+              <h3 className="text-lg font-bold text-on-surface text-center mb-1">Cancel Orders</h3>
+              <p className="text-sm text-on-surface-variant text-center mb-6">
+                Are you sure you want to cancel <span className="font-bold text-on-surface">{selected.size} order{selected.size > 1 ? 's' : ''}</span>? This action cannot be undone.
+              </p>
+              <div className="flex gap-3">
+                <button onClick={() => setShowConfirm(false)} className="flex-1 py-2.5 rounded-xl border border-outline-variant/30 text-sm font-semibold text-on-surface hover:bg-surface-container transition-colors">
+                  Keep Orders
+                </button>
+                <button onClick={handleConfirmCancel} className="flex-1 py-2.5 rounded-xl bg-error text-on-error text-sm font-bold hover:brightness-90 active:brightness-75 active:scale-95 transition-all duration-150">
+                  Yes, Cancel
+                </button>
               </div>
             </div>
-            <div className="w-48">
-              <select className="w-full h-11 px-4 bg-surface-container-lowest border-none rounded-xl text-sm focus:ring-1 focus:ring-primary appearance-none">
-                <option>Last 30 Days</option>
-                <option>Today</option>
-                <option>This Week</option>
-                <option>This Quarter</option>
-                <option>Custom Range</option>
-              </select>
-            </div>
-            <div className="w-40">
-              <select className="w-full h-11 px-4 bg-surface-container-lowest border-none rounded-xl text-sm focus:ring-1 focus:ring-primary appearance-none">
-                <option>All Status</option>
-                <option>Pending</option>
-                <option>Processing</option>
-                <option>Shipped</option>
-                <option>Delivered</option>
-                <option>Cancelled</option>
-              </select>
-            </div>
-            <button className="h-11 px-4 bg-surface-container-lowest border-none rounded-xl text-sm font-medium hover:bg-surface-container-high transition-colors">
-              Reset
-            </button>
           </div>
+        )}
 
-          {/* Bulk Actions Bar */}
-          <div className="bg-primary/5 border border-primary/10 rounded-xl px-6 py-3 mb-6 flex items-center justify-between">
+        {/* Orders Table Container */}
+        <div className="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm border border-surface-container-high">
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-surface-container-low border-b border-surface-container-high">
+                <th className="py-4 px-6 w-12">
+                  <input
+                    className="rounded text-primary focus:ring-primary w-4 h-4 border-outline-variant"
+                    type="checkbox"
+                    checked={allSelected}
+                    onChange={toggleAll}
+                  />
+                </th>
+                <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider cursor-pointer hover:text-primary transition-colors">
+                  Order ID{" "}
+                  <ChevronsUpDown size={13} className="inline align-middle" />
+                </th>
+                <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider cursor-pointer hover:text-primary transition-colors">
+                  Date
+                </th>
+                <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider">
+                  Customer
+                </th>
+                <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider">
+                  Items
+                </th>
+                <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider">
+                  Total
+                </th>
+                <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider">
+                  Payment Status
+                </th>
+                <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider text-right">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-surface-container-high">
+              {ORDERS.map((order) => (
+              <tr key={order.id} className={`hover:bg-surface-bright transition-colors group ${selected.has(order.id) ? 'bg-primary/5' : ''}`}>
+                <td className="py-5 px-6">
+                  <input
+                    className="rounded text-primary focus:ring-primary w-4 h-4 border-outline-variant"
+                    type="checkbox"
+                    checked={selected.has(order.id)}
+                    onChange={() => toggleOne(order.id)}
+                  />
+                </td>
+                <td className="py-5 px-4 font-bold text-primary">{order.id}</td>
+                <td className="py-5 px-4 text-sm text-on-surface">{order.date}</td>
+                <td className="py-5 px-4">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-8 h-8 rounded-full ${order.avatarBg} flex items-center justify-center ${order.avatarText} font-bold text-xs`}>
+                      {order.initials}
+                    </div>
+                    <span className="text-sm font-semibold">{order.customer}</span>
+                  </div>
+                </td>
+                <td className="py-5 px-4 text-sm font-medium">{order.items}</td>
+                <td className="py-5 px-4 font-extrabold text-on-surface">{order.total}</td>
+                <td className="py-5 px-4">
+                  <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tight border ${order.statusClass}`}>
+                    {order.status}
+                  </span>
+                </td>
+                <td className="py-5 px-4 text-right">
+                  <button className="p-2 hover:bg-surface-container-high rounded-lg transition-all">
+                    <MoreVertical size={18} className="text-outline" />
+                  </button>
+                </td>
+              </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* Pagination Footer */}
+          <div className="p-6 bg-surface-container-low flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <input className="rounded text-primary focus:ring-primary w-4 h-4 border-outline-variant" type="checkbox" />
-                <span className="text-sm font-semibold text-primary">3 Orders Selected</span>
-              </div>
+              <span className="text-sm font-medium text-outline">Show</span>
+              <select
+                defaultValue="25"
+                className="h-9 px-3 bg-surface-container-lowest border-none rounded-lg text-sm font-semibold focus:ring-1 focus:ring-primary appearance-none min-w-[70px]"
+              >
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+                <option>100</option>
+              </select>
+              <span className="text-sm font-medium text-outline">
+                items per page
+              </span>
             </div>
-            <div className="flex gap-4">
-              <button className="text-sm font-bold text-primary flex items-center gap-1.5 px-3 py-1.5 hover:bg-primary/10 rounded-lg transition-all">
-                <span className="material-symbols-outlined text-sm">print</span>
-                Print Labels
+            <div className="flex items-center gap-2">
+              <button
+                className="h-9 w-9 flex items-center justify-center rounded-lg border border-outline-variant/30 text-outline hover:bg-surface-container-high disabled:opacity-30"
+                disabled
+              >
+                <ChevronLeft size={16} />
               </button>
-              <button className="text-sm font-bold text-tertiary flex items-center gap-1.5 px-3 py-1.5 hover:bg-tertiary/10 rounded-lg transition-all">
-                <span className="material-symbols-outlined text-sm">delete</span>
-                Cancel Orders
+              <button className="h-9 w-9 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold text-sm">
+                1
+              </button>
+              <button className="h-9 w-9 flex items-center justify-center rounded-lg text-on-surface font-medium text-sm hover:bg-surface-container-high">
+                2
+              </button>
+              <button className="h-9 w-9 flex items-center justify-center rounded-lg text-on-surface font-medium text-sm hover:bg-surface-container-high">
+                3
+              </button>
+              <span className="px-2 text-outline">...</span>
+              <button className="h-9 w-9 flex items-center justify-center rounded-lg text-on-surface font-medium text-sm hover:bg-surface-container-high">
+                12
+              </button>
+              <button className="h-9 w-9 flex items-center justify-center rounded-lg border border-outline-variant/30 text-outline hover:bg-surface-container-high">
+                <ChevronRight size={16} />
               </button>
             </div>
-          </div>
-
-          {/* Orders Table Container */}
-          <div className="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm border border-surface-container-high">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-surface-container-low border-b border-surface-container-high">
-                  <th className="py-4 px-6 w-12"><input className="rounded text-primary focus:ring-primary w-4 h-4 border-outline-variant" type="checkbox" /></th>
-                  <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider cursor-pointer hover:text-primary transition-colors">
-                    Order ID <span className="material-symbols-outlined text-xs align-middle">unfold_more</span>
-                  </th>
-                  <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider cursor-pointer hover:text-primary transition-colors">Date</th>
-                  <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider">Customer</th>
-                  <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider">Items</th>
-                  <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider">Total</th>
-                  <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider">Payment Status</th>
-                  <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-surface-container-high">
-                <tr className="hover:bg-surface-bright transition-colors group">
-                  <td className="py-5 px-6"><input className="rounded text-primary focus:ring-primary w-4 h-4 border-outline-variant" type="checkbox" /></td>
-                  <td className="py-5 px-4 font-bold text-primary">#ORD-2024-892</td>
-                  <td className="py-5 px-4 text-sm text-on-surface">Oct 24, 2024</td>
-                  <td className="py-5 px-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-bold text-xs">AS</div>
-                      <span className="text-sm font-semibold">Anika Sharma</span>
-                    </div>
-                  </td>
-                  <td className="py-5 px-4 text-sm font-medium">3 units</td>
-                  <td className="py-5 px-4 font-extrabold text-on-surface">৳12,450.00</td>
-                  <td className="py-5 px-4">
-                    <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tight bg-primary/10 text-primary border border-primary/20">Paid</span>
-                  </td>
-                  <td className="py-5 px-4 text-right">
-                    <button className="p-2 hover:bg-surface-container-high rounded-lg transition-all">
-                      <span className="material-symbols-outlined text-outline">more_vert</span>
-                    </button>
-                  </td>
-                </tr>
-                <tr className="hover:bg-surface-bright transition-colors group">
-                  <td className="py-5 px-6"><input className="rounded text-primary focus:ring-primary w-4 h-4 border-outline-variant" type="checkbox" /></td>
-                  <td className="py-5 px-4 font-bold text-primary">#ORD-2024-891</td>
-                  <td className="py-5 px-4 text-sm text-on-surface">Oct 24, 2024</td>
-                  <td className="py-5 px-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-bold text-xs">RK</div>
-                      <span className="text-sm font-semibold">Rahat Khan</span>
-                    </div>
-                  </td>
-                  <td className="py-5 px-4 text-sm font-medium">1 unit</td>
-                  <td className="py-5 px-4 font-extrabold text-on-surface">৳4,200.00</td>
-                  <td className="py-5 px-4">
-                    <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tight bg-tertiary-fixed text-tertiary border border-tertiary/20">Pending</span>
-                  </td>
-                  <td className="py-5 px-4 text-right">
-                    <button className="p-2 hover:bg-surface-container-high rounded-lg transition-all">
-                      <span className="material-symbols-outlined text-outline">more_vert</span>
-                    </button>
-                  </td>
-                </tr>
-                <tr className="hover:bg-surface-bright transition-colors group">
-                  <td className="py-5 px-6"><input className="rounded text-primary focus:ring-primary w-4 h-4 border-outline-variant" type="checkbox" /></td>
-                  <td className="py-5 px-4 font-bold text-primary">#ORD-2024-890</td>
-                  <td className="py-5 px-4 text-sm text-on-surface">Oct 23, 2024</td>
-                  <td className="py-5 px-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface font-bold text-xs">MZ</div>
-                      <span className="text-sm font-semibold">Maliha Zaman</span>
-                    </div>
-                  </td>
-                  <td className="py-5 px-4 text-sm font-medium">5 units</td>
-                  <td className="py-5 px-4 font-extrabold text-on-surface">৳28,900.00</td>
-                  <td className="py-5 px-4">
-                    <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tight bg-primary/10 text-primary border border-primary/20">Paid</span>
-                  </td>
-                  <td className="py-5 px-4 text-right">
-                    <button className="p-2 hover:bg-surface-container-high rounded-lg transition-all">
-                      <span className="material-symbols-outlined text-outline">more_vert</span>
-                    </button>
-                  </td>
-                </tr>
-                <tr className="hover:bg-surface-bright transition-colors group">
-                  <td className="py-5 px-6"><input className="rounded text-primary focus:ring-primary w-4 h-4 border-outline-variant" type="checkbox" /></td>
-                  <td className="py-5 px-4 font-bold text-primary">#ORD-2024-889</td>
-                  <td className="py-5 px-4 text-sm text-on-surface">Oct 23, 2024</td>
-                  <td className="py-5 px-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-primary-fixed-dim flex items-center justify-center text-on-primary-fixed font-bold text-xs">TI</div>
-                      <span className="text-sm font-semibold">Tanvir Islam</span>
-                    </div>
-                  </td>
-                  <td className="py-5 px-4 text-sm font-medium">2 units</td>
-                  <td className="py-5 px-4 font-extrabold text-on-surface">৳8,600.00</td>
-                  <td className="py-5 px-4">
-                    <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tight bg-error-container text-error border border-error/20">Failed</span>
-                  </td>
-                  <td className="py-5 px-4 text-right">
-                    <button className="p-2 hover:bg-surface-container-high rounded-lg transition-all">
-                      <span className="material-symbols-outlined text-outline">more_vert</span>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
-            {/* Pagination Footer */}
-            <div className="p-6 bg-surface-container-low flex flex-col md:flex-row justify-between items-center gap-4">
-              <div className="flex items-center gap-4">
-                <span className="text-sm font-medium text-outline">Show</span>
-                <select defaultValue="25" className="h-9 px-3 bg-surface-container-lowest border-none rounded-lg text-sm font-semibold focus:ring-1 focus:ring-primary appearance-none min-w-[70px]">
-                  <option>10</option>
-                  <option>25</option>
-                  <option>50</option>
-                  <option>100</option>
-                </select>
-                <span className="text-sm font-medium text-outline">items per page</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <button className="h-9 w-9 flex items-center justify-center rounded-lg border border-outline-variant/30 text-outline hover:bg-surface-container-high disabled:opacity-30" disabled>
-                  <span className="material-symbols-outlined text-sm">chevron_left</span>
-                </button>
-                <button className="h-9 w-9 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold text-sm">1</button>
-                <button className="h-9 w-9 flex items-center justify-center rounded-lg text-on-surface font-medium text-sm hover:bg-surface-container-high">2</button>
-                <button className="h-9 w-9 flex items-center justify-center rounded-lg text-on-surface font-medium text-sm hover:bg-surface-container-high">3</button>
-                <span className="px-2 text-outline">...</span>
-                <button className="h-9 w-9 flex items-center justify-center rounded-lg text-on-surface font-medium text-sm hover:bg-surface-container-high">12</button>
-                <button className="h-9 w-9 flex items-center justify-center rounded-lg border border-outline-variant/30 text-outline hover:bg-surface-container-high">
-                  <span className="material-symbols-outlined text-sm">chevron_right</span>
-                </button>
-              </div>
-              <div className="text-sm font-medium text-outline">
-                Showing 1-25 of 284 orders
-              </div>
+            <div className="text-sm font-medium text-outline">
+              Showing 1-25 of 284 orders
             </div>
           </div>
         </div>
-
-        {/* Footer */}
-        <footer className="w-full py-12 mt-auto border-t border-surface-container-high bg-surface-bright">
-          <div className="max-w-[1280px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex flex-col items-center md:items-start gap-2">
-              <span className="font-bold text-primary">Dokan Digital Artisan</span>
-              <p className="font-sans text-xs text-outline">© 2024 Dokan Digital Artisan. All rights reserved.</p>
-            </div>
-            <div className="flex gap-6">
-              <a className="font-sans text-xs text-outline hover:text-on-surface transition-all hover:underline" href="#">Privacy Policy</a>
-              <a className="font-sans text-xs text-outline hover:text-on-surface transition-all hover:underline" href="#">Terms of Service</a>
-              <a className="font-sans text-xs text-outline hover:text-on-surface transition-all hover:underline" href="#">Merchant Agreement</a>
-              <a className="font-sans text-xs text-outline hover:text-on-surface transition-all hover:underline" href="#">Contact Support</a>
-            </div>
-          </div>
-        </footer>
-      </main>
+      </div>
     </div>
-  )
+  );
 }

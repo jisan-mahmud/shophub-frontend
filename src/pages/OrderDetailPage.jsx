@@ -3,68 +3,9 @@ import React from 'react'
 export default function OrderDetailPage() {
   return (
     <div className="bg-surface text-on-surface flex min-h-screen font-sans">
-      {/* SideNavBar */}
-      <aside className="h-screen w-64 bg-surface-container-low flex flex-col p-4 gap-2 sticky top-0 border-r border-outline-variant/10">
-        <div className="mb-8 px-4">
-          <h1 className="text-lg font-black text-primary">Flagship Store</h1>
-          <p className="text-xs text-on-surface-variant">Premium Merchant</p>
-        </div>
-        <nav className="flex-1 flex flex-col gap-1">
-          <div className="cursor-pointer flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:translate-x-1 transition-transform duration-200">
-            <span className="material-symbols-outlined">dashboard</span>
-            <span className="font-medium text-sm">Dashboard</span>
-          </div>
-          <div className="cursor-pointer flex items-center gap-3 px-4 py-3 bg-surface-container-lowest text-primary rounded-lg shadow-ambient font-medium text-sm">
-            <span className="material-symbols-outlined">shopping_cart</span>
-            <span className="font-medium text-sm">Orders</span>
-          </div>
-          <div className="cursor-pointer flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:translate-x-1 transition-transform duration-200">
-            <span className="material-symbols-outlined">inventory_2</span>
-            <span className="font-medium text-sm">Inventory</span>
-          </div>
-          <div className="cursor-pointer flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:translate-x-1 transition-transform duration-200">
-            <span className="material-symbols-outlined">group</span>
-            <span className="font-medium text-sm">Customers</span>
-          </div>
-          <div className="cursor-pointer flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:translate-x-1 transition-transform duration-200">
-            <span className="material-symbols-outlined">monitoring</span>
-            <span className="font-medium text-sm">Analytics</span>
-          </div>
-        </nav>
-        <div className="mt-auto flex flex-col gap-1 pt-4 border-t border-outline-variant/10">
-          <div className="cursor-pointer flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:translate-x-1 transition-transform duration-200">
-            <span className="material-symbols-outlined">help</span>
-            <span className="font-medium text-sm">Support</span>
-          </div>
-          <div className="cursor-pointer flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:translate-x-1 transition-transform duration-200">
-            <span className="material-symbols-outlined">logout</span>
-            <span className="font-medium text-sm">Logout</span>
-          </div>
-        </div>
-      </aside>
 
       <main className="flex-1 flex flex-col overflow-x-hidden">
-        {/* TopNavBar */}
-        <header className="w-full sticky top-0 z-50 bg-surface flex justify-between items-center px-6 py-4">
-          <div className="flex items-center gap-4 flex-1">
-            <div className="relative w-full max-w-md">
-              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
-              <input className="w-full bg-surface-container-low border-none rounded-xl pl-10 pr-4 py-2 focus:ring-1 focus:ring-primary text-sm text-on-surface" placeholder="Search orders..." type="text" />
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <button className="p-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-full active:scale-95 duration-150">
-              <span className="material-symbols-outlined">notifications</span>
-            </button>
-            <button className="p-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-full active:scale-95 duration-150">
-              <span className="material-symbols-outlined">settings</span>
-            </button>
-            <div className="h-8 w-8 rounded-full overflow-hidden ml-2 ring-2 ring-primary/10">
-              <img alt="Merchant Profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD06LExmcsMBpIbfoklCv3PK5ebMJvPaXrJcXmINwm0z-x6PWewE-LZ49EedincZzU-9TxGRcBY-lRgBNOKhtthGL0UDCaCne2PZGWnXRnhzicZoKV3tiRQbpQ2z_gQePqxBntiGkYTBH4xbd6vnl4XU6tMiSjCNj-Uh0TZFjtMyTizCcQZXAjO8EfHxYHil2nYz5ohpwmubqq80WjdBm8c2x9tVI2Qizw-Uv011WNDlrcHfZug5_0n7ujxwSiTNEq3lxINYgNe13g" />
-            </div>
-          </div>
-        </header>
-
+      
         {/* Main Content */}
         <div className="p-8 flex flex-col gap-8 w-full">
           {/* Page Header */}
