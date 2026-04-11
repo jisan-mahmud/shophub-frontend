@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Download,
   Filter,
@@ -13,12 +13,11 @@ import {
 export default function CustomersPage() {
   return (
     <div className="min-h-screen bg-surface font-sans">
-      {/* Main Content */}
-      <main className="pb-12 px-8 pt-8">
+      <main className="pb-12 px-4 md:px-8 pt-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div>
-            <h2 className="text-3xl font-black text-on-surface font-display tracking-tight">
-              Products
+            <h2 className="text-2xl md:text-3xl font-black text-on-surface font-display tracking-tight">
+              Customers
             </h2>
             <p className="text-on-surface-variant mt-1">
               Real-time performance overview for your flagship store.
@@ -33,9 +32,9 @@ export default function CustomersPage() {
         </div>
 
         {/* Filters */}
-        <div className="flex flex-wrap items-center gap-3 mb-6">
+        <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 mb-6">
           {/* Search */}
-          <div className="relative flex-1 min-w-[200px]">
+          <div className="relative flex-1 min-w-[180px]">
             <Search
               size={15}
               className="absolute left-3 top-1/2 -translate-y-1/2 text-outline"
@@ -47,61 +46,62 @@ export default function CustomersPage() {
             />
           </div>
 
-          {/* Status Filter */}
-          <div className="relative">
-            <Filter
-              size={14}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none"
-            />
-            <select className="h-10 pl-8 pr-8 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary appearance-none cursor-pointer">
-              <option value="all">All Status</option>
-              <option value="active">Active</option>
-              <option value="new">New Customer</option>
-              <option value="vip">VIP Member</option>
-              <option value="gold">Gold Member</option>
-              <option value="silver">Silver Member</option>
-              <option value="inactive">Inactive</option>
-            </select>
-            <ChevronDown
-              size={14}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none"
-            />
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3">
+            {/* Status Filter */}
+            <div className="relative col-span-2 sm:col-span-1">
+              <Filter
+                size={14}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none"
+              />
+              <select className="w-full sm:w-auto h-10 pl-8 pr-8 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary appearance-none cursor-pointer">
+                <option value="all">All Status</option>
+                <option value="active">Active</option>
+                <option value="new">New Customer</option>
+                <option value="vip">VIP Member</option>
+                <option value="gold">Gold Member</option>
+                <option value="silver">Silver Member</option>
+                <option value="inactive">Inactive</option>
+              </select>
+              <ChevronDown
+                size={14}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none"
+              />
+            </div>
+
+            {/* Spend Filter */}
+            <div className="relative">
+              <select className="w-full sm:w-auto h-10 px-4 pr-8 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary appearance-none cursor-pointer">
+                <option value="high-low">Spend: High to Low</option>
+                <option value="low-high">Spend: Low to High</option>
+                <option value="above-50k">Above ₹50,000</option>
+                <option value="10k-50k">₹10,000 – ₹50,000</option>
+                <option value="below-10k">Below ₹10,000</option>
+              </select>
+              <ChevronDown
+                size={14}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none"
+              />
+            </div>
+
+            {/* Last Order Filter */}
+            <div className="relative">
+              <select className="w-full sm:w-auto h-10 px-4 pr-8 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary appearance-none cursor-pointer">
+                <option value="all-time">All Time</option>
+                <option value="today">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+                <option value="3months">Last 3 Months</option>
+                <option value="inactive">6+ Months Ago</option>
+              </select>
+              <ChevronDown
+                size={14}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none"
+              />
+            </div>
           </div>
 
-          {/* Spend Filter */}
-          <div className="relative">
-            <select className="h-10 px-4 pr-8 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary appearance-none cursor-pointer">
-              <option value="high-low">Spend: High to Low</option>
-              <option value="low-high">Spend: Low to High</option>
-              <option value="above-50k">Spend: Above ₹50,000</option>
-              <option value="10k-50k">Spend: ₹10,000 – ₹50,000</option>
-              <option value="below-10k">Spend: Below ₹10,000</option>
-            </select>
-            <ChevronDown
-              size={14}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none"
-            />
-          </div>
-
-          {/* Last Order Filter */}
-          <div className="relative">
-            <select className="h-10 px-4 pr-8 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary appearance-none cursor-pointer">
-              <option value="all-time">All Time</option>
-              <option value="today">Last Order: Today</option>
-              <option value="week">Last Order: This Week</option>
-              <option value="month">Last Order: This Month</option>
-              <option value="3months">Last Order: Last 3 Months</option>
-              <option value="inactive">Last Order: 6+ Months Ago</option>
-            </select>
-            <ChevronDown
-              size={14}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none"
-            />
-          </div>
-
-          <div className="ml-auto text-sm text-on-surface-variant whitespace-nowrap">
-            Showing <span className="text-on-surface font-semibold">1,240</span>{" "}
-            customers
+          <div className="text-sm text-on-surface-variant whitespace-nowrap sm:ml-auto">
+            Showing <span className="text-on-surface font-semibold">1,240</span> customers
           </div>
         </div>
 
@@ -111,25 +111,25 @@ export default function CustomersPage() {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-surface-container-low">
-                  <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
+                  <th className="px-4 md:px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
                     <div className="flex items-center gap-2">
                       Customer Name
                       <ArrowUp size={13} />
                     </div>
                   </th>
-                  <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
+                  <th className="px-4 md:px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant hidden sm:table-cell">
                     Email Address
                   </th>
-                  <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
+                  <th className="px-4 md:px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant hidden lg:table-cell">
                     Billing Address
                   </th>
-                  <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
+                  <th className="px-4 md:px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
                     Total Spent
                   </th>
-                  <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
+                  <th className="px-4 md:px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant hidden md:table-cell">
                     Last Order
                   </th>
-                  <th className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant text-right">
+                  <th className="px-4 md:px-6 py-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant text-right">
                     Actions
                   </th>
                 </tr>
@@ -177,9 +177,9 @@ export default function CustomersPage() {
                     key={c.email}
                     className="hover:bg-surface-container-low/50 transition-colors"
                   >
-                    <td className="px-6 py-5">
+                    <td className="px-4 md:px-6 py-4 md:py-5">
                       <div className="flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-xl bg-surface-container flex-shrink-0 overflow-hidden">
+                        <div className="h-9 w-9 md:h-10 md:w-10 rounded-xl bg-surface-container flex-shrink-0 overflow-hidden">
                           <img
                             alt={c.name}
                             className="w-full h-full object-cover"
@@ -187,7 +187,7 @@ export default function CustomersPage() {
                           />
                         </div>
                         <div>
-                          <div className="font-semibold text-on-surface">
+                          <div className="font-semibold text-on-surface text-sm md:text-base">
                             {c.name}
                           </div>
                           <div className="text-[10px] text-on-surface-variant font-bold uppercase tracking-tighter">
@@ -196,21 +196,19 @@ export default function CustomersPage() {
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-5 text-sm text-on-surface-variant">
+                    <td className="px-4 md:px-6 py-4 md:py-5 text-sm text-on-surface-variant hidden sm:table-cell">
                       {c.email}
                     </td>
-                    <td className="px-6 py-5 text-sm text-on-surface-variant max-w-xs truncate">
+                    <td className="px-4 md:px-6 py-4 md:py-5 text-sm text-on-surface-variant max-w-[200px] truncate hidden lg:table-cell">
                       {c.address}
                     </td>
-                    <td className="px-6 py-5">
-                      <div className="text-sm font-bold text-primary">
-                        {c.spent}
-                      </div>
+                    <td className="px-4 md:px-6 py-4 md:py-5">
+                      <div className="text-sm font-bold text-primary">{c.spent}</div>
                     </td>
-                    <td className="px-6 py-5 text-sm text-on-surface-variant">
+                    <td className="px-4 md:px-6 py-4 md:py-5 text-sm text-on-surface-variant hidden md:table-cell">
                       {c.last}
                     </td>
-                    <td className="px-6 py-5 text-right">
+                    <td className="px-4 md:px-6 py-4 md:py-5 text-right">
                       <button className="text-on-surface-variant hover:text-primary transition-colors p-1">
                         <MoreVertical size={18} />
                       </button>
@@ -222,7 +220,7 @@ export default function CustomersPage() {
           </div>
 
           {/* Pagination */}
-          <div className="px-6 py-4 flex items-center justify-between border-t border-outline-variant/20">
+          <div className="px-4 md:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-outline-variant/20">
             <p className="text-xs text-on-surface-variant font-medium">
               Page <span className="text-on-surface">1</span> of 48
             </p>

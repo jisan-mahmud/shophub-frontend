@@ -1,9 +1,9 @@
 export default function AnalyticsPage() {
   return (
     <div className="bg-surface text-on-surface font-sans">
-      <section className="p-8 space-y-8">
+      <section className="p-4 sm:p-8 space-y-8">
         {/* Header Actions */}
-        <div className="flex justify-between items-end">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4">
           <div>
             <h2 className="text-3xl font-black text-on-surface font-display tracking-tight">
               Analytics
@@ -12,7 +12,7 @@ export default function AnalyticsPage() {
               Real-time performance overview for your flagship store.
             </p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <div className="flex bg-surface-container-highest p-1 rounded-xl">
               <button className="px-4 py-2 text-xs font-bold rounded-lg bg-surface-container-lowest text-primary shadow-sm">
                 Today
@@ -271,106 +271,67 @@ export default function AnalyticsPage() {
                 </button>
               </div>
             </div>
-            <div className="overflow-x-auto">
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="border-b border-surface-container-high">
-                    {[
-                      "Order ID",
-                      "Customer",
-                      "Product",
-                      "Status",
-                      "Amount",
-                    ].map((h) => (
-                      <th
-                        key={h}
-                        className="pb-4 font-bold text-xs text-outline uppercase tracking-wider"
-                      >
-                        {h}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-surface-container-high">
-                  {[
-                    {
-                      id: "#DKN-9021",
-                      initials: "AS",
-                      avatarBg: "bg-primary-fixed",
-                      textColor: "text-primary",
-                      name: "Adnan Sami",
-                      product: "Velocity Runner...",
-                      status: "Success",
-                      statusBg: "bg-primary-fixed text-on-surface",
-                      amount: "৳5,200",
-                    },
-                    {
-                      id: "#DKN-9020",
-                      initials: "RM",
-                      avatarBg: "bg-secondary-fixed",
-                      textColor: "text-secondary",
-                      name: "Raisa Mariam",
-                      product: "Artisan Watch (S)",
-                      status: "Pending",
-                      statusBg: "bg-surface-variant text-on-surface-variant",
-                      amount: "৳12,400",
-                    },
-                    {
-                      id: "#DKN-9019",
-                      initials: "TF",
-                      avatarBg: "bg-tertiary-fixed",
-                      textColor: "text-tertiary",
-                      name: "Tanvir Fahim",
-                      product: "Studio Wireless...",
-                      status: "Success",
-                      statusBg: "bg-primary-fixed text-on-surface",
-                      amount: "৳8,900",
-                    },
-                  ].map(
-                    ({
-                      id,
-                      initials,
-                      avatarBg,
-                      textColor,
-                      name,
-                      product,
-                      status,
-                      statusBg,
-                      amount,
-                    }) => (
-                      <tr key={id}>
-                        <td className="py-4 font-medium text-sm text-on-surface">
-                          {id}
-                        </td>
-                        <td className="py-4">
-                          <div className="flex items-center gap-2">
-                            <div
-                              className={`w-6 h-6 rounded-full ${avatarBg} flex items-center justify-center text-[10px] ${textColor} font-bold`}
-                            >
-                              {initials}
-                            </div>
-                            <span className="text-sm text-on-surface">
-                              {name}
-                            </span>
+{(() => {
+                const orders = [
+                  { id: "#DKN-9021", initials: "AS", avatarBg: "bg-primary-fixed", textColor: "text-primary", name: "Adnan Sami", product: "Velocity Runner...", status: "Success", statusBg: "bg-primary-fixed text-on-surface", amount: "৳5,200" },
+                  { id: "#DKN-9020", initials: "RM", avatarBg: "bg-secondary-fixed", textColor: "text-secondary", name: "Raisa Mariam", product: "Artisan Watch (S)", status: "Pending", statusBg: "bg-surface-variant text-on-surface-variant", amount: "৳12,400" },
+                  { id: "#DKN-9019", initials: "TF", avatarBg: "bg-tertiary-fixed", textColor: "text-tertiary", name: "Tanvir Fahim", product: "Studio Wireless...", status: "Success", statusBg: "bg-primary-fixed text-on-surface", amount: "৳8,900" },
+                ];
+                return (
+                  <>
+                    {/* Mobile cards */}
+                    <div className="sm:hidden space-y-3">
+                      {orders.map(({ id, initials, avatarBg, textColor, name, product, status, statusBg, amount }) => (
+                        <div key={id} className="bg-surface-container-low rounded-xl p-4 flex items-center gap-3">
+                          <div className={`w-9 h-9 rounded-full ${avatarBg} flex items-center justify-center text-xs ${textColor} font-bold shrink-0`}>
+                            {initials}
                           </div>
-                        </td>
-                        <td className="py-4 text-sm text-outline">{product}</td>
-                        <td className="py-4">
-                          <span
-                            className={`px-2 py-1 text-[10px] font-bold rounded-full ${statusBg}`}
-                          >
-                            {status}
-                          </span>
-                        </td>
-                        <td className="py-4 font-bold text-sm text-primary">
-                          {amount}
-                        </td>
-                      </tr>
-                    ),
-                  )}
-                </tbody>
-              </table>
-            </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm font-bold text-on-surface truncate">{name}</span>
+                              <span className="text-sm font-black text-primary ml-2">{amount}</span>
+                            </div>
+                            <div className="flex justify-between items-center mt-1">
+                              <span className="text-xs text-outline truncate">{product}</span>
+                              <span className={`ml-2 px-2 py-0.5 text-[10px] font-bold rounded-full shrink-0 ${statusBg}`}>{status}</span>
+                            </div>
+                            <span className="text-[10px] text-outline-variant">{id}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Desktop table */}
+                    <div className="hidden sm:block overflow-x-auto">
+                      <table className="w-full text-left">
+                        <thead>
+                          <tr className="border-b border-surface-container-high">
+                            {["Order ID", "Customer", "Product", "Status", "Amount"].map((h) => (
+                              <th key={h} className="pb-4 font-bold text-xs text-outline uppercase tracking-wider">{h}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-surface-container-high">
+                          {orders.map(({ id, initials, avatarBg, textColor, name, product, status, statusBg, amount }) => (
+                            <tr key={id}>
+                              <td className="py-4 font-medium text-sm text-on-surface">{id}</td>
+                              <td className="py-4">
+                                <div className="flex items-center gap-2">
+                                  <div className={`w-6 h-6 rounded-full ${avatarBg} flex items-center justify-center text-[10px] ${textColor} font-bold`}>{initials}</div>
+                                  <span className="text-sm text-on-surface">{name}</span>
+                                </div>
+                              </td>
+                              <td className="py-4 text-sm text-outline">{product}</td>
+                              <td className="py-4"><span className={`px-2 py-1 text-[10px] font-bold rounded-full ${statusBg}`}>{status}</span></td>
+                              <td className="py-4 font-bold text-sm text-primary">{amount}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </>
+                );
+              })()}
           </div>
         </div>
       </section>

@@ -1,13 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function SettingsPage() {
+  const [category, setCategory] = useState('Handicrafts & Decor')
+  const [newCategory, setNewCategory] = useState('')
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+
+  const categories = ['Handicrafts & Decor', 'Fashion & Textiles', 'Organic Foods']
+  const categoryLabel = categories.includes(category) ? category : category === '__new__' ? '+ Create New' : 'Select Category'
+
   return (
     <div className="bg-surface text-on-surface selection:bg-primary-fixed selection:text-on-primary-container font-sans min-h-screen">
         
         {/* Header Actions */}
-        <div className="flex justify-between items-end px-6 md:px-10">
+        <div className="flex justify-between items-end px-4 sm:px-6 md:px-10">
           <div>
-            <h2 className="text-3xl font-black text-on-surface font-display tracking-tight">
+            <h2 className="text-2xl md:text-3xl font-black text-on-surface font-display tracking-tight">
               Settings
             </h2>
             <p className="text-on-surface-variant mt-1">
@@ -17,14 +24,14 @@ export default function SettingsPage() {
         </div>
         
         {/* Content Area */}
-        <div className="w-full px-12 pt-14 pb-28">
-          <div className="flex flex-col gap-16">
+        <div className="w-full px-4 sm:px-6 md:px-10 lg:px-12 pt-8 md:pt-14 pb-24 md:pb-28">
+          <div className="flex flex-col gap-10 md:gap-16">
 
             {/* Section 1: Shop Info */}
             <section id="shop-info">
-              <div className="bg-surface-container-lowest rounded-[32px] p-10 space-y-10">
+              <div className="bg-surface-container-lowest rounded-2xl md:rounded-[32px] p-5 sm:p-8 md:p-10 space-y-8 md:space-y-10">
                 <div className="relative group">
-                  <div className="w-full h-64 rounded-[24px] bg-surface-container-low overflow-hidden relative">
+                  <div className="w-full h-40 sm:h-52 md:h-64 rounded-2xl md:rounded-[24px] bg-surface-container-low overflow-hidden relative">
                     <img alt="Shop Cover" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb0LePYbx0g17qIyinySzWqbcKq5tbhD_LAnmnv1LoeoyKfwuDnCyLJtfHEPS96GQUg9RloncmOzqQ_JOqLqLqeLtzSiwjjuGyaHT6zRK5tNGg8DR-tjhjCtGqT-puhCJUwAVZv82A0bN7IvVBhhXYksiLm8zu8kxVtLKGIeIZ1fzwClOyQDyk-Do-Ju4f0OSTkTdw60AHzbh5I1Dp0LqE_gCbygjfxUaTM9f549ijCsr2FjX7QwCVjp9-hW4lBx7ZAU_aL6QO1Ss" />
                     <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                       <button className="bg-surface-container-lowest/90 backdrop-blur px-4 py-2 rounded-xl text-sm font-bold text-primary flex items-center gap-2">
@@ -61,23 +68,51 @@ export default function SettingsPage() {
                 <h3 className="text-2xl font-bold text-primary tracking-tight">Business Details</h3>
                 <p className="text-on-surface-variant text-sm">Logistical information for operations.</p>
               </div>
-              <div className="bg-surface-container-lowest rounded-[32px] p-10 grid grid-cols-2 gap-10">
-                <div className="space-y-2 col-span-2 md:col-span-1">
+              <div className="bg-surface-container-lowest rounded-2xl md:rounded-[32px] p-5 sm:p-8 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+                <div className="space-y-2">
                   <label className="text-[0.875rem] font-bold text-on-surface px-1">Category</label>
                   <div className="relative">
-                    <select className="w-full appearance-none px-4 py-4 rounded-xl border-none bg-surface-container-highest focus:bg-surface-container-lowest focus:ring-1 focus:ring-primary transition-all text-sm font-medium">
-                      <option>Handicrafts &amp; Decor</option>
-                      <option>Fashion &amp; Textiles</option>
-                      <option>Organic Foods</option>
-                    </select>
-                    <span className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+                    <button
+                      type="button"
+                      className="w-full px-4 py-4 rounded-xl border-none bg-surface-container-highest focus:bg-surface-container-lowest focus:ring-1 focus:ring-primary transition-all text-sm font-medium text-left flex items-center justify-between"
+                      onClick={() => setDropdownOpen(o => !o)}
+                    >
+                      <span className={category ? 'text-on-surface' : 'text-outline'}>{categoryLabel}</span>
+                      <span className="material-symbols-outlined text-on-surface-variant">{dropdownOpen ? 'expand_less' : 'expand_more'}</span>
+                    </button>
+                    {dropdownOpen && (
+                      <div className="absolute z-20 mt-1 w-full bg-surface-container-lowest rounded-xl shadow-lg border border-outline-variant/20 overflow-hidden">
+                        {categories.map(c => (
+                          <button
+                            key={c}
+                            type="button"
+                            className="w-full px-4 py-3 text-left text-sm text-on-surface hover:bg-surface-container-low transition-colors"
+                            onClick={() => { setCategory(c); setDropdownOpen(false) }}
+                          >{c}</button>
+                        ))}
+                        <button
+                          type="button"
+                          className="w-full px-4 py-3 text-left text-sm text-primary font-bold hover:bg-surface-container-low transition-colors border-t border-outline-variant/20"
+                          onClick={() => { setCategory('__new__'); setDropdownOpen(false) }}
+                        >+ Create New</button>
+                      </div>
+                    )}
                   </div>
+                  {category === '__new__' && (
+                    <input
+                      autoFocus
+                      className="w-full px-4 py-4 mt-2 rounded-xl border-none bg-surface-container-highest focus:bg-surface-container-lowest focus:ring-1 focus:ring-primary transition-all text-sm font-medium"
+                      placeholder="Enter new category name"
+                      value={newCategory}
+                      onChange={e => setNewCategory(e.target.value)}
+                    />
+                  )}
                 </div>
-                <div className="space-y-2 col-span-2 md:col-span-1">
+                <div className="space-y-2">
                   <label className="text-[0.875rem] font-bold text-on-surface px-1">Contact Number</label>
                   <input className="w-full px-4 py-4 rounded-xl border-none bg-surface-container-highest focus:bg-surface-container-lowest focus:ring-1 focus:ring-primary transition-all text-sm font-medium" type="tel" defaultValue="+880 1712 345678" />
                 </div>
-                <div className="space-y-2 col-span-2">
+                <div className="space-y-2 md:col-span-2">
                   <label className="text-[0.875rem] font-bold text-on-surface px-1">Physical Address</label>
                   <div className="relative">
                     <input className="w-full px-4 py-4 rounded-xl border-none bg-surface-container-highest focus:bg-surface-container-lowest focus:ring-1 focus:ring-primary transition-all text-sm font-medium pl-12" type="text" defaultValue="House 42, Road 12, Dhanmondi, Dhaka" />
@@ -93,12 +128,12 @@ export default function SettingsPage() {
                 <h3 className="text-2xl font-bold text-primary tracking-tight">Contact Info</h3>
                 <p className="text-on-surface-variant text-sm">Public contact details for your customers.</p>
               </div>
-              <div className="bg-surface-container-lowest rounded-[32px] p-10 grid grid-cols-2 gap-10">
-                <div className="space-y-2 col-span-2 md:col-span-1">
+              <div className="bg-surface-container-lowest rounded-2xl md:rounded-[32px] p-5 sm:p-8 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+                <div className="space-y-2">
                   <label className="text-[0.875rem] font-bold text-on-surface px-1">Email Address</label>
                   <input className="w-full px-4 py-4 rounded-xl border-none bg-surface-container-highest focus:bg-surface-container-lowest focus:ring-1 focus:ring-primary transition-all text-sm font-medium" type="email" defaultValue="merchant@example.com" />
                 </div>
-                <div className="space-y-2 col-span-2 md:col-span-1">
+                <div className="space-y-2">
                   <label className="text-[0.875rem] font-bold text-on-surface px-1">Phone Number</label>
                   <input className="w-full px-4 py-4 rounded-xl border-none bg-surface-container-highest focus:bg-surface-container-lowest focus:ring-1 focus:ring-primary transition-all text-sm font-medium" type="tel" defaultValue="+880 1XXX XXXXXX" />
                 </div>
@@ -115,7 +150,7 @@ export default function SettingsPage() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* bKash */}
-                <div className="bg-surface-container-lowest rounded-[32px] p-8 border-b-4 border-secondary-container">
+                <div className="bg-surface-container-lowest rounded-2xl md:rounded-[32px] p-5 sm:p-8 border-b-4 border-secondary-container">
                   <div className="flex items-center justify-between mb-6">
                     <img alt="bKash Logo" className="h-8 object-contain rounded" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDJly8QEnKAchFsFwr8bd8nTKnS0NMyj_XUKPgs88z4DWFvnNo1OwfCptoBcHWmd5Rnx0qVQhRmscwcrY-5_GgeqyKOhaVd9y31fQxbUOqdojooI9uUrz9qyKwrbBblEjPMEMlflM0HFdu8D5MNAx-F6gPrFO05COLpZFw9_wmyBld1rp0c3_zhCaVk4fa9fv9bV0eHlpFheRgm6nhYwzobXOEwKibu4UPTKHFMDsx6jkDeC7irdOugI8mErOmzsw2K_trL1rCoxo" />
                     <div className="flex items-center gap-1.5 px-2.5 py-1 bg-secondary-fixed rounded-full">
@@ -137,7 +172,7 @@ export default function SettingsPage() {
                 </div>
 
                 {/* Nagad */}
-                <div className="bg-surface-container-lowest rounded-[32px] p-8 border-b-4 border-tertiary-container">
+                <div className="bg-surface-container-lowest rounded-2xl md:rounded-[32px] p-5 sm:p-8 border-b-4 border-tertiary-container">
                   <div className="flex items-center justify-between mb-6">
                     <img alt="Nagad Logo" className="h-8 object-contain rounded" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr5tvdhCaPPREkRBHKVnMOr-CkaUlKOgGXpmQGOmE06T7XLnVb1gfYQEsfxIUSyzRtjnS3kCkB4XCKM1TxTDQEx6iiS3HZOjsG5kgwg_9QF_UGrD6H0m3TvYoGjayoWMNlEqkZZaUqcaCfcX6ChazNTKFuAjAAzxIvAQZ1k-VVnE1QFJS2iArYbUb059aPxHvhsnhoBuDffREM7q8k5MQrhMh-oV618Vtb-FhaKkxjHZt8AABi6s6CRgxi1kSeBiZKoG-VUudBXg8" />
                     <div className="flex items-center gap-1.5 px-2.5 py-1 bg-surface-container rounded-full">
@@ -164,8 +199,8 @@ export default function SettingsPage() {
                 <h3 className="text-2xl font-bold text-primary tracking-tight">Security</h3>
                 <p className="text-on-surface-variant text-sm">Manage your access and credentials.</p>
               </div>
-              <div className="bg-surface-container-lowest rounded-[32px] p-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <div className="bg-surface-container-lowest rounded-2xl md:rounded-[32px] p-5 sm:p-8 md:p-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
                   <div className="space-y-2">
                     <label className="text-[0.875rem] font-bold text-on-surface px-1">Login Email</label>
                     <div className="relative">
@@ -188,38 +223,19 @@ export default function SettingsPage() {
             </section>
 
             {/* Action Footer */}
-            <div className="flex items-center justify-between pt-10 border-t border-outline-variant">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-8 md:pt-10 border-t border-outline-variant">
               <div className="flex items-center gap-2 text-on-surface-variant">
                 <span className="material-symbols-outlined text-[18px]">info</span>
                 <span className="text-sm">Last updated 2 days ago</span>
               </div>
-              <div className="flex gap-4">
-                <button className="px-8 py-3 rounded-xl font-bold text-on-surface-variant hover:bg-surface-container-high transition-colors">Discard</button>
-                <button className="btn-primary px-10 py-4 rounded-xl shadow-ambient">Save Changes</button>
+              <div className="flex gap-3 w-full sm:w-auto">
+                <button className="flex-1 sm:flex-none px-6 py-3 rounded-xl font-bold text-on-surface-variant hover:bg-surface-container-high transition-colors">Discard</button>
+                <button className="flex-1 sm:flex-none btn-primary px-8 py-3 rounded-xl shadow-ambient">Save Changes</button>
               </div>
             </div>
 
           </div>
         </div>
-      {/* Bottom Nav for Mobile */}
-      <nav className="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 bg-surface-container-lowest/80 backdrop-blur-[24px] z-50 h-20 rounded-t-[32px] shadow-[0_-8px_24px_rgba(0,77,52,0.06)] md:hidden">
-        <button className="flex flex-col items-center justify-center text-on-surface-variant">
-          <span className="material-symbols-outlined">home</span>
-          <span className="font-sans text-[10px] font-bold uppercase tracking-widest mt-1">Home</span>
-        </button>
-        <button className="flex flex-col items-center justify-center text-on-surface-variant">
-          <span className="material-symbols-outlined">analytics</span>
-          <span className="font-sans text-[10px] font-bold uppercase tracking-widest mt-1">Sales</span>
-        </button>
-        <button className="flex flex-col items-center justify-center text-on-surface-variant">
-          <span className="material-symbols-outlined">grid_view</span>
-          <span className="font-sans text-[10px] font-bold uppercase tracking-widest mt-1">Inventory</span>
-        </button>
-        <button className="flex flex-col items-center justify-center bg-primary-fixed/30 text-primary rounded-[20px] px-5 py-2">
-          <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>settings</span>
-          <span className="font-sans text-[10px] font-bold uppercase tracking-widest mt-1">Settings</span>
-        </button>
-      </nav>
     </div>
   )
 }

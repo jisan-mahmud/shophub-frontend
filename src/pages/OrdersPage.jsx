@@ -19,9 +19,23 @@ const ORDERS = [
   { id: "#ORD-2024-889", date: "Oct 23, 2024", customer: "Tanvir Islam", initials: "TI", avatarBg: "bg-primary-fixed-dim", avatarText: "text-on-primary-fixed", items: "2 units", total: "৳8,600.00", status: "Failed", statusClass: "bg-error-container text-error border-error/20" },
 ];
 
+const DATE_OPTIONS = ['Last 30 Days', 'Today', 'This Week', 'This Quarter', 'Custom Range'];
+const STATUS_OPTIONS = [
+  { value: 'all', label: 'All Status' },
+  { value: 'pending', label: 'Pending' },
+  { value: 'processing', label: 'Processing' },
+  { value: 'shipped', label: 'Shipped' },
+  { value: 'delivered', label: 'Delivered' },
+  { value: 'cancelled', label: 'Cancelled' },
+];
+
 export default function OrdersPage() {
   const [selected, setSelected] = useState(new Set());
   const [showConfirm, setShowConfirm] = useState(false);
+  const [dateFilter, setDateFilter] = useState('Last 30 Days');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [dateOpen, setDateOpen] = useState(false);
+  const [statusOpen, setStatusOpen] = useState(false);
 
   const allSelected = selected.size === ORDERS.length;
   const toggleAll = () => setSelected(allSelected ? new Set() : new Set(ORDERS.map(o => o.id)));
@@ -29,34 +43,34 @@ export default function OrdersPage() {
   const handleConfirmCancel = () => { setSelected(new Set()); setShowConfirm(false); };
 
   return (
-    <div className="p-8 w-full">
+    <div className="p-4 md:p-8 w-full">
       {/* Header Section */}
-      <div className="mb-8 flex justify-between items-end">
+      <div className="mb-6 md:mb-8 flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4">
         <div>
-          <h2 className="text-3xl font-black text-on-surface font-display tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-black text-on-surface font-display tracking-tight">
             Products
           </h2>
           <p className="text-on-surface-variant mt-1">
             Real-time performance overview for your flagship store.
           </p>
         </div>
-        <div className="flex gap-3">
-          <button className="flex items-center gap-2 px-4 py-2.5 bg-surface-container-lowest border border-outline-variant/20 rounded-xl text-sm font-semibold text-on-surface hover:bg-surface-container-high transition-all">
+        <div className="flex gap-3 shrink-0">
+          <button className="flex items-center gap-2 px-3 md:px-4 py-2.5 bg-surface-container-lowest border border-outline-variant/20 rounded-xl text-sm font-semibold text-on-surface hover:bg-surface-container-high transition-all">
             <Download size={15} />
-            Export Data
+            <span className="hidden sm:inline">Export Data</span>
           </button>
-          <button className="flex items-center gap-2 px-6 py-2.5 bg-primary text-on-primary rounded-xl text-sm font-bold shadow-lg hover:opacity-90 transition-opacity">
+          <button className="flex items-center gap-2 px-4 md:px-6 py-2.5 bg-primary text-on-primary rounded-xl text-sm font-bold shadow-lg hover:opacity-90 transition-opacity">
             <Plus size={15} />
-            Create Order
+            <span className="hidden sm:inline">Create Order</span>
           </button>
         </div>
       </div>
       {/* Page Content */}
       <div>
         {/* Filters Bar */}
-        <div className="flex flex-wrap items-center gap-3 mb-6">
+        <div className="flex flex-col sm:flex-row gap-2 md:gap-3 mb-6">
           {/* Search */}
-          <div className="relative flex-1 min-w-[200px]">
+          <div className="relative flex-1">
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-outline" />
             <input
               type="text"
@@ -65,36 +79,69 @@ export default function OrdersPage() {
             />
           </div>
 
-          {/* Date Filter */}
-          <div className="relative">
-            <Filter size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none" />
-            <select className="h-10 pl-8 pr-8 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary appearance-none cursor-pointer">
-              <option>Last 30 Days</option>
-              <option>Today</option>
-              <option>This Week</option>
-              <option>This Quarter</option>
-              <option>Custom Range</option>
-            </select>
-            <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none" />
-          </div>
+          <div className="grid grid-cols-2 sm:flex gap-2 md:gap-3">
+            {/* Date Filter */}
+            <div className="relative">
+              <button
+                type="button"
+                className="h-10 w-full sm:w-[160px] pl-8 pr-7 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm text-on-surface-variant flex items-center justify-between hover:bg-surface-container-high transition-colors"
+                onClick={() => { setDateOpen(o => !o); setStatusOpen(false); }}
+              >
+                <Filter size={14} className="absolute left-3 text-outline" />
+                <span className="truncate text-left">{dateFilter}</span>
+                <ChevronDown size={14} className={`absolute right-2 text-outline transition-transform ${dateOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {dateOpen && (
+                <div className="absolute z-20 mt-1 w-full min-w-[160px] bg-surface-container-lowest rounded-xl shadow-lg border border-outline-variant/20 overflow-hidden">
+                  {DATE_OPTIONS.map(opt => (
+                    <button
+                      key={opt}
+                      type="button"
+                      className={`w-full px-4 py-2.5 text-left text-sm transition-colors hover:bg-surface-container-low ${
+                        dateFilter === opt ? 'text-primary font-bold' : 'text-on-surface'
+                      }`}
+                      onClick={() => { setDateFilter(opt); setDateOpen(false); }}
+                    >{opt}</button>
+                  ))}
+                </div>
+              )}
+            </div>
 
-          {/* Status Filter */}
-          <div className="relative">
-            <Filter size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none" />
-            <select className="h-10 pl-8 pr-8 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary appearance-none cursor-pointer">
-              <option value="all">All Status</option>
-              <option value="pending">Pending</option>
-              <option value="processing">Processing</option>
-              <option value="shipped">Shipped</option>
-              <option value="delivered">Delivered</option>
-              <option value="cancelled">Cancelled</option>
-            </select>
-            <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none" />
-          </div>
+            {/* Status Filter */}
+            <div className="relative">
+              <button
+                type="button"
+                className="h-10 w-full sm:w-[140px] pl-8 pr-7 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm text-on-surface-variant flex items-center justify-between hover:bg-surface-container-high transition-colors"
+                onClick={() => { setStatusOpen(o => !o); setDateOpen(false); }}
+              >
+                <Filter size={14} className="absolute left-3 text-outline" />
+                <span className="truncate text-left">{STATUS_OPTIONS.find(o => o.value === statusFilter)?.label}</span>
+                <ChevronDown size={14} className={`absolute right-2 text-outline transition-transform ${statusOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {statusOpen && (
+                <div className="absolute z-20 mt-1 w-full min-w-[140px] bg-surface-container-lowest rounded-xl shadow-lg border border-outline-variant/20 overflow-hidden">
+                  {STATUS_OPTIONS.map(opt => (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      className={`w-full px-4 py-2.5 text-left text-sm transition-colors hover:bg-surface-container-low ${
+                        statusFilter === opt.value ? 'text-primary font-bold' : 'text-on-surface'
+                      }`}
+                      onClick={() => { setStatusFilter(opt.value); setStatusOpen(false); }}
+                    >{opt.label}</button>
+                  ))}
+                </div>
+              )}
+            </div>
 
-          <button className="h-10 px-4 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm font-medium hover:bg-surface-container-high transition-colors">
-            Reset
-          </button>
+            <button
+              type="button"
+              className="col-span-2 sm:col-span-1 h-10 px-4 bg-surface-container-lowest border border-outline-variant/30 rounded-xl text-sm font-medium hover:bg-surface-container-high transition-colors"
+              onClick={() => { setDateFilter('Last 30 Days'); setStatusFilter('all'); }}
+            >
+              Reset
+            </button>
+          </div>
         </div>
 
         {/* Bulk Actions Bar */}
@@ -147,6 +194,7 @@ export default function OrdersPage() {
 
         {/* Orders Table Container */}
         <div className="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm border border-surface-container-high">
+          <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-surface-container-low border-b border-surface-container-high">
@@ -162,13 +210,13 @@ export default function OrdersPage() {
                   Order ID{" "}
                   <ChevronsUpDown size={13} className="inline align-middle" />
                 </th>
-                <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider cursor-pointer hover:text-primary transition-colors">
+                <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider cursor-pointer hover:text-primary transition-colors hidden sm:table-cell">
                   Date
                 </th>
                 <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider">
                   Customer
                 </th>
-                <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider">
+                <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider hidden md:table-cell">
                   Items
                 </th>
                 <th className="py-4 px-4 text-xs font-bold text-outline uppercase tracking-wider">
@@ -194,7 +242,7 @@ export default function OrdersPage() {
                   />
                 </td>
                 <td className="py-5 px-4 font-bold text-primary">{order.id}</td>
-                <td className="py-5 px-4 text-sm text-on-surface">{order.date}</td>
+                <td className="py-5 px-4 text-sm text-on-surface hidden sm:table-cell">{order.date}</td>
                 <td className="py-5 px-4">
                   <div className="flex items-center gap-3">
                     <div className={`w-8 h-8 rounded-full ${order.avatarBg} flex items-center justify-center ${order.avatarText} font-bold text-xs`}>
@@ -203,7 +251,7 @@ export default function OrdersPage() {
                     <span className="text-sm font-semibold">{order.customer}</span>
                   </div>
                 </td>
-                <td className="py-5 px-4 text-sm font-medium">{order.items}</td>
+                <td className="py-5 px-4 text-sm font-medium hidden md:table-cell">{order.items}</td>
                 <td className="py-5 px-4 font-extrabold text-on-surface">{order.total}</td>
                 <td className="py-5 px-4">
                   <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tight border ${order.statusClass}`}>
@@ -220,8 +268,9 @@ export default function OrdersPage() {
             </tbody>
           </table>
 
+          </div>
           {/* Pagination Footer */}
-          <div className="p-6 bg-surface-container-low flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="p-4 md:p-6 bg-surface-container-low flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-4">
               <span className="text-sm font-medium text-outline">Show</span>
               <select
