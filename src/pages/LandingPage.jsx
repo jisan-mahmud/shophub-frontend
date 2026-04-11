@@ -3,58 +3,11 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="w-full">
-      <nav className="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-lg border-b border-outline-variant/20 shadow-sm">
-        <div className="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto w-full">
-          <div className="text-2xl font-serif font-black text-primary">Dokan</div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            <a className="text-primary font-bold border-b-2 border-primary pb-1 font-serif text-base" href="#features">Features</a>
-            <a className="text-on-surface-variant hover:text-primary transition-all duration-300 font-serif text-base" href="#pricing">Pricing</a>
-            <a className="text-on-surface-variant hover:text-primary transition-all duration-300 font-serif text-base" href="#success">Success Stories</a>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <button className="hidden md:flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-primary-container text-on-primary rounded-xl font-bold hover:shadow-lg transition-all duration-200">
-              Create Shop
-            </button>
-            <button className="hidden md:block p-2 hover:bg-surface-container rounded-lg transition-colors">
-              <CircleUser className="w-6 h-6 text-on-surface-variant" />
-            </button>
-
-            {/* Mobile Menu Button */}
-            <button 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 hover:bg-surface-container rounded-lg transition-colors"
-            >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6 text-on-surface" />
-              ) : (
-                <Menu className="w-6 h-6 text-on-surface" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-outline-variant/20 bg-surface">
-            <div className="flex flex-col gap-4 px-6 py-4">
-              <a href="#features" className="text-primary font-bold py-2">Features</a>
-              <a href="#pricing" className="text-on-surface-variant hover:text-primary py-2">Pricing</a>
-              <a href="#success" className="text-on-surface-variant hover:text-primary py-2">Success Stories</a>
-              <button className="w-full px-6 py-2.5 bg-gradient-to-r from-primary to-primary-container text-on-primary rounded-xl font-bold mt-2">
-                Create Shop
-              </button>
-            </div>
-          </div>
-        )}
-      </nav>
-      <main className="pt-24 w-full">
+    
+      <main className="">
         <section className="relative px-6 md:px-12 py-12 md:py-24 max-w-7xl mx-auto w-full" id="features">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="z-10">
@@ -229,20 +182,6 @@ const LandingPage = () => {
           </div>
         </section>
 
-        <footer className="bg-surface-container py-8 md:py-12 px-6">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
-            <div className="text-2xl font-serif font-black text-primary">Dokan</div>
-            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-              <a className="text-on-surface-variant hover:text-primary transition-colors duration-200 font-sans text-xs uppercase tracking-wider font-bold" href="#terms">Terms of Service</a>
-              <a className="text-on-surface-variant hover:text-primary transition-colors duration-200 font-sans text-xs uppercase tracking-wider font-bold" href="#privacy">Privacy Policy</a>
-              <a className="text-on-surface-variant hover:text-primary transition-colors duration-200 font-sans text-xs uppercase tracking-wider font-bold" href="#agreement">Merchant Agreement</a>
-              <a className="text-on-surface-variant hover:text-primary transition-colors duration-200 font-sans text-xs uppercase tracking-wider font-bold" href="#contact">Contact Us</a>
-            </div>
-            <p className="text-on-surface-variant font-sans text-xs uppercase tracking-wider">
-              © 2024 Dokan. Built with local pride.
-            </p>
-          </div>
-        </footer>
       </main>
     </div>
   );

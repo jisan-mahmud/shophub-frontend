@@ -3,30 +3,6 @@ import React from 'react'
 export default function Checkout() {
   return (
     <div className="text-on-surface font-sans">
-      {/* TopNavBar */}
-      <header className="h-16 w-full sticky top-0 z-40 bg-surface">
-        <nav className="flex justify-between items-center px-6 max-w-[1280px] mx-auto w-full h-full">
-          <div className="flex items-center gap-8">
-            <span className="text-xl font-black text-primary">Dokan</span>
-            <div className="hidden md:flex gap-6">
-              <a className="text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
-              <a className="text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Products</a>
-              <a className="text-on-surface-variant font-medium hover:text-primary transition-colors" href="#">Orders</a>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <button className="p-2 rounded-full hover:bg-surface-container-high transition-all">
-              <span className="material-symbols-outlined text-on-surface-variant">notifications</span>
-            </button>
-            <button className="p-2 rounded-full hover:bg-surface-container-high transition-all">
-              <span className="material-symbols-outlined text-on-surface-variant">settings</span>
-            </button>
-            <div className="h-8 w-8 rounded-full bg-surface-container-highest overflow-hidden">
-              <img alt="Merchant Profile Avatar" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo5LCD_0lILMGmibZZaOGdht0_sIvZrEfhVJ4WeJhxVkMui9RCdi2HnYfHb9D3yA52Ow6AY3kkA5TIt81tudvT-d3ZImFYSrxLEofOeacLITe_hsQYEZht-Pc4oes1mlZVsNTEsPTGiuoLaTu9dQ-_MG2kbj5i_i1uqLEhr3Pm8lzXfOgw9ClOXdNsZDp0jcDcNAgWwn2Hkp7be5LdComEatOV8pVWN7jcTa4DllT1o6nvBBPgKsOgF89BboqhhlRSgkRAnRUGZsE" />
-            </div>
-          </div>
-        </nav>
-      </header>
 
       <main className="max-w-[1280px] mx-auto px-6 py-8">
         {/* Info Banner */}
@@ -229,21 +205,6 @@ export default function Checkout() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="w-full py-12 mt-auto border-t border-surface-container-high bg-surface">
-        <div className="max-w-[1280px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex flex-col gap-2">
-            <span className="font-bold text-primary text-lg">Dokan</span>
-            <span className="font-sans text-xs text-on-surface-variant">© 2024 Dokan Digital Artisan. All rights reserved.</span>
-          </div>
-          <div className="flex gap-6">
-            <a className="text-on-surface-variant hover:text-on-surface transition-all text-xs" href="#">Privacy Policy</a>
-            <a className="text-on-surface-variant hover:text-on-surface transition-all text-xs" href="#">Terms of Service</a>
-            <a className="text-on-surface-variant hover:text-on-surface transition-all text-xs" href="#">Merchant Agreement</a>
-            <a className="text-on-surface-variant hover:text-on-surface transition-all text-xs" href="#">Contact Support</a>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }

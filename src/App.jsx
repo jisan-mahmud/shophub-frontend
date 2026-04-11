@@ -6,7 +6,7 @@ import ShopPage from './pages/ShopPage';
 import ShopAbout from './pages/ShopAbout';
 import ProductDetails from './pages/ProductDetails';
 import CartPage from './pages/CartPage';
-import Checkout from './pages/Checkout';
+
 import PaymentPage from './pages/PaymentPage';
 import TrakingPage from './pages/TrakingPage';
 import DashboardPage from './pages/DashboardPage';
@@ -16,6 +16,7 @@ import AddProductPage from './pages/AddProductPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import SettingsPage from './pages/SettingsPage';
 import ProductsPage from './pages/ProductsPage';
+import Checkout from './pages/CheckOut';
 
 function App() {
   return (
